@@ -9,6 +9,6 @@
 	</head>
 	
 	<body>
-		<% response.sendRedirect("public/menuInicial.faces"); %>
+		<% response.sendRedirect("public/index.faces"); %>
 	</body>
 </html>
