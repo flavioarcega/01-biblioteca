@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12899480564940" configfile="/BibliotecaJSF/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12899480564940" configfile="/BibliotecaJSF/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="Todas" x="268" y="180" id="pf12900036484047" outlinks="pf12900036484048 pf129002691194710" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="Menu Inicial" x="252" id="pf12900036484049" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf12900036484048" path="/public/menuInicial.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="Manter Usuario" x="456" y="180" id="pf129002691194711" inlinks="pf129002691194710" path="/public/manterUsuario.xhtml"/>
+  <links id="pf12900036484048" target="pf12900036484049" source="pf12900036484047" outcome="menuInicial"/>
+  <links id="pf129002691194710" target="pf129002691194711" source="pf12900036484047" outcome="manterUsuario"/>
+</pageflow:Pageflow>

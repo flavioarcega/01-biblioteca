@@ -1,5 +1,6 @@
 package biblioteca.persistence.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,7 +8,8 @@ import javax.persistence.Query;
 
 import biblioteca.util.JpaUtil;
 
-public abstract class AbstractDAO<T> {
+@SuppressWarnings("serial")
+public abstract class AbstractDAO<T> implements Serializable {
 	protected String entityClassName;
 	
 	@SuppressWarnings("rawtypes")

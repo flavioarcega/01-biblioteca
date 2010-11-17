@@ -7,4 +7,19 @@
 	<application id="BibliotecaJSF">
 		
 	</application>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>menuInicial</from-outcome>
+			<to-view-id>/public/menuInicial.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>Todas</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>manterUsuario</from-outcome>
+			<to-view-id>/public/manterUsuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

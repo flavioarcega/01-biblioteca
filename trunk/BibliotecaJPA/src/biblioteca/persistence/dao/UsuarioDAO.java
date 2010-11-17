@@ -10,6 +10,7 @@ import biblioteca.util.JpaUtil;
  * Classe de acesso a tabela Operador.
  */
 public class UsuarioDAO extends AbstractDAO<Usuario> {
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Construtor padrao.

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets" >
+	
+	<f:view>
+		<f:loadBundle var="bundle" basename="biblioteca.cfg.MessageBundle" />
+		
+		<h:head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<title><h:outputText value="#{bundle['titulo.manterUsuario']}"/></title>
+		</h:head>
+	
+		<h:body>
+			<h:form>
+				<h:messages />
+				<div align="right">
+					<h:link value="#{bundle['titulo.menuInicial']}" outcome="menuInicial" />
+				</div>
+				<h:panelGroup rendered="#{manterUsuarioMB.fasePesquisa}">
+					<fieldset class="camposLinha">
+						<legend><h:outputText value="#{bundle['titulo.manterUsuario']}"/></legend>
+						<legend><h:outputText value="#{bundle['label.pesquisar']}"/></legend>
+						<div class="campo">
+							<div class="campoLabel">
+								<h:outputLabel value="#{bundle['label.login']}" for="loginPesquisa"/>
+							</div>
+							<div class="campoCorpo">
+								<h:inputText id="loginPesquisa" value="#{manterUsuarioMB.loginPesquisa}"/>
+								<h:commandButton value="#{bundle['label.pesquisar']}"  action="#{manterUsuarioMB.pesquisar}" />
+								<h:commandButton value="#{bundle['label.incluir']}"    action="#{manterUsuarioMB.incluir}" immediate="true"/>
+							</div>
+						</div>
+					</fieldset>
+				</h:panelGroup>
+				
+				<h:panelGroup rendered="#{manterUsuarioMB.usuario ne null}">
+					<fieldset class="camposLinha">
+						<div class="campo">
+							<h:selectManyCheckbox id="perfilSelect" value="#{manterUsuarioMB.perfis}" disabled="#{manterUsuarioMB.registroSalvo}" required="true" >
+								<f:selectItems value="#{manterUsuarioMB.perfilList}"/>
+							</h:selectManyCheckbox>
+						</div>
+						<div class="campo">
+							<div class="campoLabel">
+								<h:outputLabel value="#{bundle['label.login']}" for="login"/>
+							</div>
+							<div class="campoCorpo">
+								<h:inputText id="login" value="#{manterUsuarioMB.usuario.login}" disabled="#{manterUsuarioMB.registroSalvo}"/>
+							</div>
+						</div>
+						<div class="campo">
+							<div class="campoLabel">
+								<h:outputLabel value="#{bundle['label.senha']}" for="senha"/>
+							</div>
+							<div class="campoCorpo">
+								<h:inputSecret value="#{manterUsuarioMB.usuario.senha}" disabled="#{manterUsuarioMB.registroSalvo}" required="true"/>
+							</div>
+						</div>
+						<div class="campo">
+							<div class="campoLabel">
+								<h:outputLabel value="#{bundle['label.nome']}" for="nome"/>
+							</div>
+							<div class="campoCorpo">
+								<h:inputText value="#{manterUsuarioMB.usuario.nome}" disabled="#{manterUsuarioMB.registroSalvo}"/>
+							</div>
+						</div>
+					</fieldset>
+					
+					<fieldset class="barraBotao">
+						<div>
+							<h:commandButton value="#{bundle['label.salvar']}"    action="#{manterUsuarioMB.salvar}" rendered="#{!manterUsuarioMB.registroSalvo}" />
+							<h:commandButton value="#{bundle['label.editar']}"    action="#{manterUsuarioMB.editar}" rendered="#{manterUsuarioMB.registroSalvo}"/>
+							<h:commandButton value="#{bundle['label.excluir']}"   action="#{manterUsuarioMB.excluir}" rendered="#{manterUsuarioMB.registroSalvo}"/>
+							<h:commandButton value="#{bundle['label.pesquisar']}" action="#{manterUsuarioMB.habilitarPesquisa}" rendered="#{manterUsuarioMB.registroSalvo}"/>
+						</div>
+					</fieldset>
+				</h:panelGroup>
+			</h:form>
+		</h:body>
+	</f:view>
+</html>
