@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:f="http://java.sun.com/jsf/core" 
 	  xmlns:h="http://java.sun.com/jsf/html"
@@ -9,17 +9,18 @@
 		<f:loadBundle var="bundle" basename="biblioteca.cfg.MessageBundle" />
 		
 		<h:head>
+			<h:outputStylesheet name="biblioteca.css" library="css" />
 			<title><ui:insert name="title">Biblioteca JSF</ui:insert></title>
 		</h:head>
 	
 		<h:body>
-			<div id="header" style="margin: 15px 0px 15px 0px;" >
+			<div id="header" class="header">
 				<ui:insert name="header">
 					<ui:include src="/WEB-INF/template/menu.xhtml"/>
 				</ui:insert>
 			</div>
 			
-			<div id="content">
+			<div id="content" class="content">
 				<h:form>
 					<h:messages />
 					<ui:insert name="content" />

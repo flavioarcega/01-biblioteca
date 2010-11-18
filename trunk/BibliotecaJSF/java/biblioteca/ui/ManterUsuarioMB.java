@@ -16,11 +16,10 @@ import biblioteca.persistence.dao.UsuarioDAO;
 import biblioteca.persistence.entity.Perfil;
 import biblioteca.persistence.entity.Usuario;
 
+@ManagedBean
 @ViewScoped
-@ManagedBean(name="manterUsuarioMB")
 public class ManterUsuarioMB implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final String NAVIGATION_RULE = null;
 	
 	private PerfilDAO  perfilDAO;
 	private UsuarioDAO usuarioDAO;
@@ -38,9 +37,8 @@ public class ManterUsuarioMB implements Serializable {
 		this.setFasePesquisa(true);
 	}
 	
-	public String pesquisar() {
+	public Object pesquisar() {
 		try {
-			System.out.println("Login Pesquisa: "+this.getLoginPesquisa());
 			Usuario usuario = usuarioDAO.findByUserName(this.getLoginPesquisa());
 			if (usuario != null) {
 				this.setUsuario(usuario);
@@ -49,45 +47,45 @@ public class ManterUsuarioMB implements Serializable {
 			} else {
 				this.setFasePesquisa(true);
 				this.setUsuario(null);
-				FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Operador não encontrado!"));
+				FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Usuário não encontrado!"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return NAVIGATION_RULE;
+		return NavigationEnum.SELF;
 	}
 	
-	public String incluir() {
+	public Object incluir() {
 		this.setUsuario(new Usuario());
 		this.setRegistroSalvo(false);
 		this.setFasePesquisa(false);
-		return NAVIGATION_RULE;
+		return NavigationEnum.SELF;
 	}
 	
-	public String editar() {
+	public Object editar() {
 		this.setRegistroSalvo(false);
 		this.setFasePesquisa(false);
-		return NAVIGATION_RULE;
+		return NavigationEnum.SELF;
 	}
 	
-	public String salvar() {
+	public Object salvar() {
 		usuarioDAO.insertOrUpdate(this.getUsuario());
 		this.setRegistroSalvo(true);
-		return NAVIGATION_RULE;
+		return NavigationEnum.SELF;
 	}
 	
-	public String excluir() {
+	public Object excluir() {
 		usuarioDAO.delete(this.getUsuario());
 		this.setUsuario(null);
 		this.setRegistroSalvo(true);
 		this.setFasePesquisa(true);
-		return NAVIGATION_RULE;
+		return NavigationEnum.SELF;
 	}
 
-	public String habilitarPesquisa() {
+	public Object habilitarPesquisa() {
 		this.setFasePesquisa(true);
 		this.setUsuario(null);
-		return NAVIGATION_RULE;
+		return NavigationEnum.SELF;
 	}
 	
 	public List<SelectItem> getPerfilList() {

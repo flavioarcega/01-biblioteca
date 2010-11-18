@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12899480564940" configfile="/BibliotecaJSF/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="Todas" x="268" y="180" id="pf12900036484047" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf12900363001092 pf12900365491786" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="public/manterUsuario.faces" id="pf12900363001094" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf12900363001092" path="/public/manterUsuario.faces"/>
-  <nodes xsi:type="pageflow:PFPage" name="public/index.faces" id="pf12900365491787" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf12900365491786" path="/public/index.faces"/>
-  <links id="pf12900363001092" target="pf12900363001094" source="pf12900036484047" outcome="manterUsuario"/>
-  <links id="pf12900365491786" target="pf12900365491787" source="pf12900036484047" outcome="index"/>
-</pageflow:Pageflow>
+<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12899480564940" configfile="/BibliotecaJSF/WebContent/WEB-INF/faces-config.xml"/>

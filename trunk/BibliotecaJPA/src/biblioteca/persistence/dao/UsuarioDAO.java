@@ -7,7 +7,7 @@ import biblioteca.persistence.entity.Usuario;
 import biblioteca.util.JpaUtil;
 
 /**
- * Classe de acesso a tabela Operador.
+ * Classe de acesso a tabela USUARIO.
  */
 public class UsuarioDAO extends AbstractDAO<Usuario> {
 	private static final long serialVersionUID = 1L;
