@@ -181,6 +181,9 @@
 <foreign-key id="4000e7:12c6092205b:-77e5" name="FK_EMPRESTIMO_8" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
 </foreign-key>
+<foreign-key id="4000e7:12c6092205b:-768d" name="FK_EMPRESTIMO_9" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EMPRESTIMO" referenced-table="EMPRESTIMO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_EMPRESTIMO" referenced-key-column-name="ID_EMPRESTIMO"/>
+</foreign-key>
 </foreign-key-list>
 </table>
 </table-list>
@@ -194,6 +197,6 @@
 <table-figure refid="4000e7:12c6092205b:-7e31" x="72" y="98"/>
 <table-figure refid="4000e7:12c6092205b:-7e20" x="57" y="375"/>
 <table-figure refid="4000e7:12c6092205b:-7e16" x="56" y="231"/>
-<table-figure height="182" refid="4000e7:12c6092205b:-7d72" width="289" x="691" y="33"/>
+<table-figure height="216" refid="4000e7:12c6092205b:-7d72" width="289" x="691" y="33"/>
 </diagram>
 </clay-model>
