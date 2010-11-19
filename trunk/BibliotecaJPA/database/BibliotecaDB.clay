@@ -2,7 +2,7 @@
 <clay-model clay-version="2.0.1">
 <database-model author="" begin-script="" end-script="&#10;INSERT INTO PERFIL VALUES (1, 'Administrador');&#10;INSERT INTO PERFIL VALUES (2, 'Professor');&#10;INSERT INTO PERFIL VALUES (3, 'Aluno');&#10;&#10;INSERT INTO USUARIO VALUES (1, 'admin', 'admin', 'Administrador');&#10;INSERT INTO USUARIO VALUES (2, 'professor', 'professor', 'Professor');&#10;INSERT INTO USUARIO VALUES (3, 'aluno', 'aluno', 'Aluno');&#10;&#10;INSERT INTO USUARIO_PERFIL VALUES (1, 1);&#10;INSERT INTO USUARIO_PERFIL VALUES (2, 2);&#10;INSERT INTO USUARIO_PERFIL VALUES (3, 3);&#10;&#10;CREATE SEQUENCE SQ_USUARIO_ID_USUARIO       AS INTEGER START WITH 4 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_PERFIL_ID_PERFIL         AS INTEGER START WITH 4 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_AUTOR_ID_AUTOR           AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_EDITORA_ID_EDITORA       AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_LIVRO_ID_LIVRO           AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_EMPRESTIMO_ID_EMPRESTIMO AS INTEGER START WITH 1 INCREMENT BY 1;&#10;&#10;" id="4000e7:12c6092205b:-8000" name="BibliotecaDB" sql-dialect-id="jp.azzurri.clay.dialect.HSQLDB_1_7_0_Dialect" version="1.0">
 <schema-list>
-<schema id="4000e7:12c6092205b:-7ffd" name="DEFAULT_SCHEMA">
+<schema id="4000e7:12c6092205b:-7ffd" name="PUBLIC">
 <table-list>
 <table id="4000e7:12c6092205b:-7fff" name="LIVRO">
 <column-list>
@@ -32,10 +32,10 @@
 <primary-key-column name="ID_LIVRO"/>
 </primary-key>
 <foreign-key-list>
-<foreign-key id="4000e7:12c6092205b:-7a65" name="FK_LIVRO_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EDITORA" referenced-table="EDITORA" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="4000e7:12c6092205b:-7a65" name="FK_LIVRO_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EDITORA" referenced-table="EDITORA" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_EDITORA" referenced-key-column-name="ID_EDITORA"/>
 </foreign-key>
-<foreign-key id="4000e7:12c6092205b:-7a3b" name="FK_LIVRO_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_AUTOR" referenced-table="AUTOR" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="4000e7:12c6092205b:-7a3b" name="FK_LIVRO_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_AUTOR" referenced-table="AUTOR" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_AUTOR" referenced-key-column-name="ID_AUTOR"/>
 </foreign-key>
 </foreign-key-list>
@@ -121,10 +121,10 @@
 <primary-key-column name="ID_USUARIO"/>
 </primary-key>
 <foreign-key-list>
-<foreign-key id="4000e7:12c6092205b:-7de0" name="FK_USUARIO_PERFIL_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PERFIL" referenced-table="PERFIL" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="4000e7:12c6092205b:-7de0" name="FK_USUARIO_PERFIL_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PERFIL" referenced-table="PERFIL" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_PERFIL" referenced-key-column-name="ID_PERFIL"/>
 </foreign-key>
-<foreign-key id="4000e7:12c6092205b:-7dbd" name="FK_USUARIO_PERFIL_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="4000e7:12c6092205b:-7dbd" name="FK_USUARIO_PERFIL_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
 </foreign-key>
 </foreign-key-list>
@@ -163,19 +163,19 @@
 <primary-key-column name="ID_EMPRESTIMO"/>
 </primary-key>
 <foreign-key-list>
-<foreign-key id="4000e7:12c6092205b:-7acf" name="FK_EMPRESTIMO_5" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_LIVRO" referenced-table="LIVRO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="4000e7:12c6092205b:-7acf" name="FK_EMPRESTIMO_5" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_LIVRO" referenced-table="LIVRO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_LIVRO" referenced-key-column-name="ID_LIVRO"/>
 </foreign-key>
-<foreign-key id="4000e7:12c6092205b:-768d" name="FK_EMPRESTIMO_9" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EMPRESTIMO" referenced-table="EMPRESTIMO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="4000e7:12c6092205b:-768d" name="FK_EMPRESTIMO_9" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EMPRESTIMO" referenced-table="EMPRESTIMO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_RENOVACAO" referenced-key-column-name="ID_EMPRESTIMO"/>
 </foreign-key>
-<foreign-key id="d320d6:12c65341f29:-7ed3" name="FK_EMPRESTIMO_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="d320d6:12c65341f29:-7ed3" name="FK_EMPRESTIMO_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_ALUNO" referenced-key-column-name="ID_USUARIO"/>
 </foreign-key>
-<foreign-key id="d320d6:12c65341f29:-7e7d" name="FK_EMPRESTIMO_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="d320d6:12c65341f29:-7e7d" name="FK_EMPRESTIMO_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_OPERADOR_LOCACAO" referenced-key-column-name="ID_USUARIO"/>
 </foreign-key>
-<foreign-key id="d320d6:12c65341f29:-7e40" name="FK_EMPRESTIMO_6" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key id="d320d6:12c65341f29:-7e40" name="FK_EMPRESTIMO_6" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_OPERADOR_DEVOLUCAO" referenced-key-column-name="ID_USUARIO"/>
 </foreign-key>
 </foreign-key-list>
