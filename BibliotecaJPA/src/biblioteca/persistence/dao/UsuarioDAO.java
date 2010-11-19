@@ -29,11 +29,4 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
 			return null;
 		}
 	}
-	
-	@Override
-	public boolean insertOrUpdate(Usuario obj) {
-		System.out.println("LOGIN: "+obj.getLogin());
-		//obj.setSenha(MD5Hash.hash(obj.getSenha()));
-		return super.insertOrUpdate(obj);
-	}
 }

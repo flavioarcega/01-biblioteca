@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <clay-model clay-version="2.0.1">
-<database-model author="" begin-script="" end-script="" id="4000e7:12c6092205b:-8000" name="BibliotecaDB" sql-dialect-id="jp.azzurri.clay.dialect.HSQLDB_1_7_0_Dialect" version="1.0">
+<database-model author="" begin-script="" end-script="&#10;INSERT INTO PERFIL VALUES (1, 'Administrador');&#10;INSERT INTO PERFIL VALUES (2, 'Professor');&#10;INSERT INTO PERFIL VALUES (3, 'Aluno');&#10;&#10;INSERT INTO USUARIO VALUES (1, 'admin', 'admin', 'Administrador');&#10;INSERT INTO USUARIO VALUES (2, 'professor', 'professor', 'Professor');&#10;INSERT INTO USUARIO VALUES (3, 'aluno', 'aluno', 'Aluno');&#10;&#10;INSERT INTO USUARIO_PERFIL VALUES (1, 1);&#10;INSERT INTO USUARIO_PERFIL VALUES (2, 2);&#10;INSERT INTO USUARIO_PERFIL VALUES (3, 3);&#10;&#10;CREATE SEQUENCE SQ_USUARIO_ID_USUARIO       AS INTEGER START WITH 4 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_PERFIL_ID_PERFIL         AS INTEGER START WITH 4 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_AUTOR_ID_AUTOR           AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_EDITORA_ID_EDITORA       AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_LIVRO_ID_LIVRO           AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_EMPRESTIMO_ID_EMPRESTIMO AS INTEGER START WITH 1 INCREMENT BY 1;&#10;&#10;" id="4000e7:12c6092205b:-8000" name="BibliotecaDB" sql-dialect-id="jp.azzurri.clay.dialect.HSQLDB_1_7_0_Dialect" version="1.0">
 <schema-list>
 <schema id="4000e7:12c6092205b:-7ffd" name="DEFAULT_SCHEMA">
 <table-list>
@@ -42,7 +42,7 @@
 </table>
 <table id="4000e7:12c6092205b:-7feb" name="EDITORA">
 <column-list>
-<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fe2" mandatory="true" name="ID_EDITORA">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fe2" mandatory="true" name="ID_EDITORA">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
 <column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fe5" mandatory="true" name="NOME">
@@ -61,7 +61,7 @@
 </table>
 <table id="4000e7:12c6092205b:-7fdf" name="AUTOR">
 <column-list>
-<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fdb" mandatory="true" name="ID_AUTOR">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fdb" mandatory="true" name="ID_AUTOR">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
 <column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fda" mandatory="true" name="NOME">
@@ -77,7 +77,7 @@
 </table>
 <table id="4000e7:12c6092205b:-7e31" name="PERFIL">
 <column-list>
-<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e28" mandatory="true" name="ID_PERFIL">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e28" mandatory="true" name="ID_PERFIL">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
 <column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e27" mandatory="false" name="DESCRICAO">
@@ -131,7 +131,7 @@
 </table>
 <table id="4000e7:12c6092205b:-7d72" name="EMPRESTIMO">
 <column-list>
-<column auto-increment="true" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d67" mandatory="true" name="ID_EMPRESTIMO">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d67" mandatory="true" name="ID_EMPRESTIMO">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
 <column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d66" mandatory="false" name="DATA_EMPRESTIMO">
@@ -143,19 +143,19 @@
 <column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d64" mandatory="false" name="DATA_DEVOLUCAO_EFETIVA">
 <data-type name="DATETIME" selected-variant-pattern="DATETIME"/>
 </column>
-<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7c56" mandatory="false" name="RENOVACAO">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7c56" mandatory="false" name="ID_RENOVACAO">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
 <column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7acd" mandatory="true" name="ID_LIVRO">
 <data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
 </column>
-<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-78b9" mandatory="true" name="ID_USUARIO">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-78b9" mandatory="true" name="ID_ALUNO">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
-<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7836" mandatory="true" name="ID_USUARIO">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7836" mandatory="true" name="ID_OPERADOR_LOCACAO">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
-<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-77e3" mandatory="true" name="ID_USUARIO">
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-77e3" mandatory="true" name="ID_OPERADOR_DEVOLUCAO">
 <data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
 </column>
 </column-list>
@@ -166,23 +166,17 @@
 <foreign-key id="4000e7:12c6092205b:-7acf" name="FK_EMPRESTIMO_5" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_LIVRO" referenced-table="LIVRO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
 <foreign-key-column column-name="ID_LIVRO" referenced-key-column-name="ID_LIVRO"/>
 </foreign-key>
-<foreign-key id="4000e7:12c6092205b:-78bb" name="FK_EMPRESTIMO_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
-<foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
-</foreign-key>
-<foreign-key id="4000e7:12c6092205b:-7872" name="FK_EMPRESTIMO_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
-<foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
-</foreign-key>
-<foreign-key id="4000e7:12c6092205b:-7855" name="FK_EMPRESTIMO_6" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
-<foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
-</foreign-key>
-<foreign-key id="4000e7:12c6092205b:-7838" name="FK_EMPRESTIMO_7" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
-<foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
-</foreign-key>
-<foreign-key id="4000e7:12c6092205b:-77e5" name="FK_EMPRESTIMO_8" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
-<foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
-</foreign-key>
 <foreign-key id="4000e7:12c6092205b:-768d" name="FK_EMPRESTIMO_9" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EMPRESTIMO" referenced-table="EMPRESTIMO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
-<foreign-key-column column-name="ID_EMPRESTIMO" referenced-key-column-name="ID_EMPRESTIMO"/>
+<foreign-key-column column-name="ID_RENOVACAO" referenced-key-column-name="ID_EMPRESTIMO"/>
+</foreign-key>
+<foreign-key id="d320d6:12c65341f29:-7ed3" name="FK_EMPRESTIMO_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_ALUNO" referenced-key-column-name="ID_USUARIO"/>
+</foreign-key>
+<foreign-key id="d320d6:12c65341f29:-7e7d" name="FK_EMPRESTIMO_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_OPERADOR_LOCACAO" referenced-key-column-name="ID_USUARIO"/>
+</foreign-key>
+<foreign-key id="d320d6:12c65341f29:-7e40" name="FK_EMPRESTIMO_6" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_OPERADOR_DEVOLUCAO" referenced-key-column-name="ID_USUARIO"/>
 </foreign-key>
 </foreign-key-list>
 </table>
