@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:composition template="/WEB-INF/template/default.xhtml">
+		<ui:define name="title">
+			<h:outputText value="#{bundle['titulo.manterAutor']}"/>
+		</ui:define>
+		
+		<ui:define name="content">
+			<fieldset class="camposLinha">
+				<legend><h:outputText value="#{bundle['titulo.manterAutor']}"/></legend>
+
+				<h:panelGroup rendered="#{manterAutorMB.autores ne null}">
+					<h:dataTable id="autorTable" value="#{manterAutorMB.autores}" var="autor">
+						<h:column>
+							
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</fieldset>
+			<fieldset class="barraBotao">
+				<div>
+					<h:commandButton value="#{bundle['label.salvar']}"    action="#{manterUsuarioMB.salvar}" rendered="#{!manterUsuarioMB.registroSalvo}" />
+					<h:commandButton value="#{bundle['label.editar']}"    action="#{manterUsuarioMB.editar}" rendered="#{manterUsuarioMB.registroSalvo}"/>
+					<h:commandButton value="#{bundle['label.excluir']}"   action="#{manterUsuarioMB.excluir}" rendered="#{manterUsuarioMB.registroSalvo}"/>
+					<h:commandButton value="#{bundle['label.pesquisar']}" action="#{manterUsuarioMB.habilitarPesquisa}" rendered="#{manterUsuarioMB.registroSalvo}"/>
+				</div>
+			</fieldset>
+		</ui:define>
+	</ui:composition>
+</html>

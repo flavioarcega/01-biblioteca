@@ -8,7 +8,8 @@ package biblioteca.ui;
 public enum NavigationEnum {
 	SELF (null), 							// Permanecer na mesma pagina
 	INDEX ("index"), 						// Pagina inicial
-	MANTER_USUARIO ("manterUsuario");		// Manutencao de usuarios
+	MANTER_USUARIO ("manterUsuario"),		// Manutencao de usuarios
+	MANTER_AUTOR ("manterAutor");		// Manutencao de autores
 	
 	private NavigationEnum(String navigationRule) {
 		this.navigationRule = navigationRule;
