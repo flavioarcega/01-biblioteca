@@ -13,7 +13,6 @@
 		<ui:define name="content">
 			<h:panelGroup rendered="#{manterUsuarioMB.fasePesquisa}">
 				<fieldset class="camposLinha">
-					<legend><h:outputText value="#{bundle['titulo.manterUsuario']}"/></legend>
 					<legend><h:outputText value="#{bundle['label.pesquisar']}"/></legend>
 					<div class="campo">
 						<div class="campoLabel">
@@ -30,6 +29,7 @@
 			
 			<h:panelGroup rendered="#{manterUsuarioMB.usuario ne null}">
 				<fieldset class="camposLinha">
+					<legend><h:outputText value="#{bundle['titulo.manterUsuario']}"/></legend>
 					<div class="campo">
 						<h:selectManyCheckbox id="perfilSelect" value="#{manterUsuarioMB.perfis}" disabled="#{manterUsuarioMB.registroSalvo}" required="true" >
 							<f:selectItems value="#{manterUsuarioMB.perfilList}"/>
