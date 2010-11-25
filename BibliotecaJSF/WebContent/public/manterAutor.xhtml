@@ -16,18 +16,21 @@
 
 				<h:panelGroup rendered="#{manterAutorMB.autores ne null}">
 					<h:dataTable id="autorTable" value="#{manterAutorMB.autores}" var="autor">
+						<f:facet name="header">
+							<h:column>#{bundle['label.nome']}</h:column>
+						</f:facet>
 						<h:column>
-							
+							<h:inputText value="#{autor.nome}" disabled="#{manterAutorMB.registroSalvo}"/>
 						</h:column>
 					</h:dataTable>
 				</h:panelGroup>
 			</fieldset>
 			<fieldset class="barraBotao">
 				<div>
-					<h:commandButton value="#{bundle['label.salvar']}"    action="#{manterUsuarioMB.salvar}" rendered="#{!manterUsuarioMB.registroSalvo}" />
-					<h:commandButton value="#{bundle['label.editar']}"    action="#{manterUsuarioMB.editar}" rendered="#{manterUsuarioMB.registroSalvo}"/>
-					<h:commandButton value="#{bundle['label.excluir']}"   action="#{manterUsuarioMB.excluir}" rendered="#{manterUsuarioMB.registroSalvo}"/>
-					<h:commandButton value="#{bundle['label.pesquisar']}" action="#{manterUsuarioMB.habilitarPesquisa}" rendered="#{manterUsuarioMB.registroSalvo}"/>
+					<h:commandButton value="#{bundle['label.incluir']}" action="#{manterAutorMB.incluir}" rendered="#{manterAutorMB.registroSalvo}"/>
+					<h:commandButton value="#{bundle['label.editar']}"  action="#{manterAutorMB.editar}"  rendered="#{manterAutorMB.registroSalvo}"/>
+					<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterAutorMB.salvar}"  rendered="#{!manterAutorMB.registroSalvo}" />
+					<h:commandButton value="#{bundle['label.excluir']}" action="#{manterAutorMB.excluir}" rendered="#{manterAutorMB.registroSalvo}"/>
 				</div>
 			</fieldset>
 		</ui:define>
