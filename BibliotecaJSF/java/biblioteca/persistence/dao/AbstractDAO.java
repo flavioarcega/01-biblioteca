@@ -27,16 +27,15 @@ public abstract class AbstractDAO<T> implements Serializable {
 		return em;
 	}
 	
-	public boolean insertOrUpdate(T obj){
+	public T insertOrUpdate(T obj){
 		obj = em.merge(obj);
 		em.persist(obj);
-		return true;
+		return obj;
 	}
 	
 	public boolean delete(T obj) {
 		obj = em.merge(obj);
 		em.remove(obj);
-		em.getTransaction().commit();
 		return true;
 	}	
 

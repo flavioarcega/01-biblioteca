@@ -26,6 +26,9 @@ public class Autor implements Serializable {
 	@Column(name="NOME", nullable=false, length=60)
 	private String nome;
 
+	@Transient
+	private Boolean excluir;
+
 	//bi-directional many-to-one association to Livro
 	@OneToMany(mappedBy="autor")
 	private Set<Livro> livros;
@@ -64,5 +67,12 @@ public class Autor implements Serializable {
 	public void setLivros(Set<Livro> livros) {
 		this.livros = livros;
 	}
-	
+
+	public Boolean getExcluir() {
+		return excluir;
+	}
+
+	public void setExcluir(Boolean excluir) {
+		this.excluir = excluir;
+	}
 }
