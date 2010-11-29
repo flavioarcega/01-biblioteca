@@ -11,8 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import biblioteca.bc.UsuarioBC;
 import biblioteca.persistence.dao.PerfilDAO;
-import biblioteca.persistence.dao.UsuarioDAO;
 import biblioteca.persistence.entity.Perfil;
 import biblioteca.persistence.entity.Usuario;
 
@@ -22,7 +22,7 @@ public class ManterUsuarioMB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private PerfilDAO  perfilDAO;
-	private UsuarioDAO usuarioDAO;
+	private UsuarioBC  usuarioBC;
 	
 	private String     loginPesquisa;
 	private Usuario    usuario;
@@ -31,27 +31,22 @@ public class ManterUsuarioMB implements Serializable {
 	private boolean    registroSalvo;
 	
 	public ManterUsuarioMB () {
-		perfilDAO 	= new PerfilDAO();
-		usuarioDAO = new UsuarioDAO();
-		
+		perfilDAO = new PerfilDAO();
+		usuarioBC = new UsuarioBC();
 		this.setFasePesquisa(true);
 	}
 	
 	public Object pesquisar() {
-		try {
-			Usuario usuario = usuarioDAO.findByUserName(this.getLoginPesquisa());
-			if (usuario != null) {
-				this.setUsuario(usuario);
-				this.setRegistroSalvo(true);
-				this.setFasePesquisa(false);
-			} else {
-				this.setFasePesquisa(true);
-				this.setUsuario(null);
-				FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Usuário não encontrado!"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		usuario = usuarioBC.pesquisarPorLogin(this.getLoginPesquisa());
+		if (usuario != null) {
+			this.setUsuario(usuario);
+			this.setRegistroSalvo(true);
+			this.setFasePesquisa(false);
+		} else {
+			this.setFasePesquisa(true);
+			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Usuário não encontrado!"));
 		}
+		
 		return NavigationEnum.SELF;
 	}
 	
@@ -69,13 +64,13 @@ public class ManterUsuarioMB implements Serializable {
 	}
 	
 	public Object salvar() {
-		usuarioDAO.insertOrUpdate(this.getUsuario());
+		usuarioBC.salvar(this.getUsuario());
 		this.setRegistroSalvo(true);
 		return NavigationEnum.SELF;
 	}
 	
 	public Object excluir() {
-		usuarioDAO.delete(this.getUsuario());
+		usuarioBC.excluir(this.getUsuario());
 		this.setUsuario(null);
 		this.setRegistroSalvo(true);
 		this.setFasePesquisa(true);
@@ -89,7 +84,7 @@ public class ManterUsuarioMB implements Serializable {
 	}
 	
 	public List<SelectItem> getPerfilList() {
-		List<Perfil> perfilList = perfilDAO.getList();
+		List<Perfil> perfilList = perfilDAO.listAll();
 		List<SelectItem> lista = new ArrayList<SelectItem>();
 		for (Perfil perfil : perfilList)
 			lista.add(new SelectItem(perfil.getId(), perfil.getDescricao()));
