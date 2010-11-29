@@ -27,7 +27,8 @@ public class UsuarioBC implements Serializable {
 
 	public Boolean salvar(Usuario usuario) {
 		try {
-			return usuarioDAO.insertOrUpdate(usuario);
+			usuario = usuarioDAO.insertOrUpdate(usuario);
+			return true;
 		} catch (Throwable e) {
 			e.printStackTrace();
 			return null;

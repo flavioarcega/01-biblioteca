@@ -22,6 +22,12 @@
 						<h:column>
 							<h:inputText value="#{autor.nome}" disabled="#{manterAutorMB.registroSalvo}"/>
 						</h:column>
+						<h:column>
+							<h:inputText value="#{autor.anoNascimento}" disabled="#{manterAutorMB.registroSalvo}"/>
+						</h:column>
+						<h:column>
+							<h:selectBooleanCheckbox value="#{autor.excluir}" disabled="#{manterAutorMB.registroSalvo}"/>
+						</h:column>
 					</h:dataTable>
 				</h:panelGroup>
 			</fieldset>
@@ -30,7 +36,6 @@
 					<h:commandButton value="#{bundle['label.incluir']}" action="#{manterAutorMB.incluir}" rendered="#{manterAutorMB.registroSalvo}"/>
 					<h:commandButton value="#{bundle['label.editar']}"  action="#{manterAutorMB.editar}"  rendered="#{manterAutorMB.registroSalvo}"/>
 					<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterAutorMB.salvar}"  rendered="#{!manterAutorMB.registroSalvo}" />
-					<h:commandButton value="#{bundle['label.excluir']}" action="#{manterAutorMB.excluir}" rendered="#{manterAutorMB.registroSalvo}"/>
 				</div>
 			</fieldset>
 		</ui:define>

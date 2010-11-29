@@ -1,6 +1,7 @@
 package biblioteca.bc;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import biblioteca.persistence.dao.AutorDAO;
@@ -18,23 +19,23 @@ public class AutorBC implements Serializable {
 		return autorDAO.listAll();
 	}
 	
-	public Boolean salvarAutores(List<Autor> lista) {
+	public List<Autor> salvarAutores(List<Autor> lista) {
 		try {
-			boolean isExcluido;
-			for (Autor autorDB : autorDAO.listAll()) {
-				isExcluido = true;
-				for (Autor autor : lista) 
-					if (autorDB.getId() == autor.getId()) isExcluido = false;
-				if (isExcluido) 
-					if (!autorDAO.delete(autorDB))
-						return false;
-			}
+			for (Autor autor : lista)
+				if (autor.getNome().isEmpty() || autor.getExcluir()) {
+					autorDAO.delete(autor);
+					autor.setExcluir(true);
+				}
+			List<Autor> listaRetorno = new ArrayList<Autor>();
 			for (Autor autor : lista) 
-				if (!autorDAO.insertOrUpdate(autor)) return false;
+				if (!autor.getExcluir()) {
+					autor = autorDAO.insertOrUpdate(autor);
+					listaRetorno.add(autor);
+				}
+			return listaRetorno;
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-			
-		return true;
+		return null;
 	}
 }

@@ -37,10 +37,7 @@ public class ManterAutorMB implements Serializable {
 	}
 
 	public Object salvar() {
-		for (Autor autor : autores)
-			if (autor.getNome().isEmpty()) autores.remove(autor);
-		
-		autorBC.salvarAutores(autores);
+		this.setAutores(autorBC.salvarAutores(this.getAutores()));
 		registroSalvo = true;
 		
 		return NavigationEnum.SELF;
