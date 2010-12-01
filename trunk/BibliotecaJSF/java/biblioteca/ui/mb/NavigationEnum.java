@@ -1,4 +1,4 @@
-package biblioteca.ui;
+package biblioteca.ui.mb;
 
 /**
  * Em JSF 2.0 nao eh necessario adicionar os navigations ao faces-config.xml.

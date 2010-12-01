@@ -1,4 +1,4 @@
-package biblioteca.ui;
+package biblioteca.ui.mb;
 
 import java.io.Serializable;
 import java.util.ArrayList;
