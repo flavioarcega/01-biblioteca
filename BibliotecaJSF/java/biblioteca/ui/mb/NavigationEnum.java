@@ -10,6 +10,7 @@ public enum NavigationEnum {
 	INDEX			("index"),				// Pagina inicial
 	MANTER_AUTOR	("manterAutor"),		// Manutencao de autores
 	MANTER_EDITORA	("manterEditora"),		// Manutencao de editoras
+	MANTER_LIVRO	("manterLivro"),		// Manutencao de livros
 	MANTER_USUARIO	("manterUsuario");		// Manutencao de usuarios
 	
 	private NavigationEnum(String navigationRule) {

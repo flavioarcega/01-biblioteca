@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:composition template="/WEB-INF/template/default.xhtml">
+		<ui:define name="title">
+			<h:outputText value="#{bundle['titulo.manterLivro']}"/>
+		</ui:define>
+		
+		<ui:define name="content">
+			<fieldset class="camposLinha">
+				<legend><h:outputText value="#{bundle['titulo.manterLivro']}"/></legend>
+
+				<h:panelGroup rendered="#{manterLivroMB.livros ne null}">
+					<h:dataTable id="livroTable" value="#{manterLivroMB.livros}" var="livro" styleClass="">
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.isbn']}</f:facet>
+							<h:inputText value="#{livro.isbn}" disabled="#{manterLivroMB.registroSalvo}"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.titulo']}</f:facet>
+							<h:inputText value="#{livro.titulo}" disabled="#{manterLivroMB.registroSalvo}"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.edicao']}</f:facet>
+							<h:inputText value="#{livro.edicao}" disabled="#{manterLivroMB.registroSalvo}"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.anoEdicao']}</f:facet>
+							<h:inputText value="#{livro.anoEdicao}" disabled="#{manterLivroMB.registroSalvo}"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.autor']}</f:facet>
+							<h:selectOneListbox value="#{livro.autor}" disabled="#{manterLivroMB.registroSalvo}" size="1">
+								<f:selectItems value="#{manterLivroMB.autores}" />
+							</h:selectOneListbox>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.editora']}</f:facet>
+							<h:selectOneListbox value="#{livro.editora}" disabled="#{manterLivroMB.registroSalvo}" size="1">
+								<f:selectItems value="#{manterLivroMB.editoras}"/>
+							</h:selectOneListbox>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.excluir']}</f:facet>
+							<h:selectBooleanCheckbox value="#{livro.excluir}" disabled="#{manterLivroMB.registroSalvo}" styleClass="dataColumnExcluir"/>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</fieldset>
+			<fieldset class="barraBotao">
+				<div>
+					<h:commandButton value="#{bundle['label.incluir']}" action="#{manterLivroMB.incluir}" rendered="#{manterLivroMB.registroSalvo}" />
+					<h:commandButton value="#{bundle['label.editar']}"  action="#{manterLivroMB.editar}"  rendered="#{manterLivroMB.registroSalvo}" />
+					<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterLivroMB.salvar}"  rendered="#{!manterLivroMB.registroSalvo}"/>
+				</div>
+			</fieldset>
+		</ui:define>
+	</ui:composition>
+</html>
