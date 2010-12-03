@@ -34,13 +34,13 @@
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.autor']}</f:facet>
-							<h:selectOneListbox value="#{livro.autor}" disabled="#{manterLivroMB.registroSalvo}" size="1">
+							<h:selectOneListbox value="#{livro.autor.id}" disabled="#{manterLivroMB.registroSalvo}" size="1" converter="javax.faces.Integer">
 								<f:selectItems value="#{manterLivroMB.autores}" />
 							</h:selectOneListbox>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.editora']}</f:facet>
-							<h:selectOneListbox value="#{livro.editora}" disabled="#{manterLivroMB.registroSalvo}" size="1">
+							<h:selectOneListbox value="#{livro.editora.id}" disabled="#{manterLivroMB.registroSalvo}" size="1" converter="javax.faces.Integer">
 								<f:selectItems value="#{manterLivroMB.editoras}"/>
 							</h:selectOneListbox>
 						</h:column>

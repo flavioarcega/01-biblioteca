@@ -17,7 +17,7 @@ public class Livro implements Serializable {
 	@SequenceGenerator(name="LIVRO_IDLIVRO_GENERATOR", sequenceName="SQ_LIVRO_ID_LIVRO", allocationSize=0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LIVRO_IDLIVRO_GENERATOR")
 	@Column(name="ID_LIVRO", unique=true, nullable=false)
-	private String id;
+	private Integer id;
 
 	@Column
 	private String isbn;
@@ -28,7 +28,7 @@ public class Livro implements Serializable {
 	@Column
 	private short edicao;
 
-	@Column
+	@Column(name="ANOEDICAO")
 	private int anoEdicao;
 
 	@Transient
@@ -51,11 +51,11 @@ public class Livro implements Serializable {
     public Livro() {
     }
 
-	public String getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
