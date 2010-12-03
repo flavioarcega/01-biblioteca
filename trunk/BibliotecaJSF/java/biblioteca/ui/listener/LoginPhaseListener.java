@@ -1,4 +1,4 @@
-package biblioteca.ui.security;
+package biblioteca.ui.listener;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

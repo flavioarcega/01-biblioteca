@@ -1,8 +1,16 @@
 package biblioteca.persistence.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 
 /**
@@ -17,13 +25,19 @@ public class Editora implements Serializable {
 	@SequenceGenerator(name="EDITORA_IDEDITORA_GENERATOR", sequenceName="SQ_EDITORA_ID_EDITORA", allocationSize=0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EDITORA_IDEDITORA_GENERATOR")
 	@Column(name="ID_EDITORA", unique=true, nullable=false)
-	private int idEditora;
+	private int id;
 
-	private String cidade;
-
+	@Column
 	private String nome;
 
+	@Column
+	private String cidade;
+
+	@Column
 	private String pais;
+	
+	@Transient
+	private Boolean excluir;
 
 	//bi-directional many-to-one association to Livro
 	@OneToMany(mappedBy="editora")
@@ -32,12 +46,12 @@ public class Editora implements Serializable {
     public Editora() {
     }
 
-	public int getIdEditora() {
-		return this.idEditora;
+	public int getId() {
+		return this.id;
 	}
 
-	public void setIdEditora(int idEditora) {
-		this.idEditora = idEditora;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCidade() {
@@ -71,5 +85,12 @@ public class Editora implements Serializable {
 	public void setLivros(Set<Livro> livros) {
 		this.livros = livros;
 	}
-	
+
+	public Boolean getExcluir() {
+		return excluir;
+	}
+
+	public void setExcluir(Boolean excluir) {
+		this.excluir = excluir;
+	}
 }

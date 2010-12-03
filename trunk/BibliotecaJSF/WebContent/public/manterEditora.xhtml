@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:composition template="/WEB-INF/template/default.xhtml">
+		<ui:define name="title">
+			<h:outputText value="#{bundle['titulo.manterEditora']}"/>
+		</ui:define>
+		
+		<ui:define name="content">
+			<fieldset class="camposLinha">
+				<legend><h:outputText value="#{bundle['titulo.manterEditora']}"/></legend>
+
+				<h:panelGroup rendered="#{manterEditoraMB.editoras ne null}">
+					<h:dataTable id="editoraTable" value="#{manterEditoraMB.editoras}" var="editora">
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.nome']}</f:facet>
+							<h:inputText value="#{editora.nome}" disabled="#{manterEditoraMB.registroSalvo}"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.cidade']}</f:facet>
+							<h:inputText value="#{editora.cidade}" disabled="#{manterEditoraMB.registroSalvo}"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.pais']}</f:facet>
+							<h:inputText value="#{editora.pais}" disabled="#{manterEditoraMB.registroSalvo}"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.excluir']}</f:facet>
+							<h:selectBooleanCheckbox value="#{editora.excluir}" disabled="#{manterEditoraMB.registroSalvo}" styleClass="dataColumnExcluir"/>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</fieldset>
+			<fieldset class="barraBotao">
+				<div>
+					<h:commandButton value="#{bundle['label.incluir']}" action="#{manterEditoraMB.incluir}" rendered="#{manterEditoraMB.registroSalvo}" />
+					<h:commandButton value="#{bundle['label.editar']}"  action="#{manterEditoraMB.editar}"  rendered="#{manterEditoraMB.registroSalvo}" />
+					<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterEditoraMB.salvar}"  rendered="#{!manterEditoraMB.registroSalvo}"/>
+				</div>
+			</fieldset>
+		</ui:define>
+	</ui:composition>
+</html>

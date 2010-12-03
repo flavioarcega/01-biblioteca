@@ -15,18 +15,18 @@
 				<legend><h:outputText value="#{bundle['titulo.manterAutor']}"/></legend>
 
 				<h:panelGroup rendered="#{manterAutorMB.autores ne null}">
-					<h:dataTable id="autorTable" value="#{manterAutorMB.autores}" var="autor">
-						<f:facet name="header">
-							<h:column>#{bundle['label.nome']}</h:column>
-						</f:facet>
-						<h:column>
+					<h:dataTable id="autorTable" value="#{manterAutorMB.autores}" var="autor" styleClass="">
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.nome']}</f:facet>
 							<h:inputText value="#{autor.nome}" disabled="#{manterAutorMB.registroSalvo}"/>
 						</h:column>
-						<h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.anoNascimento']}</f:facet>
 							<h:inputText value="#{autor.anoNascimento}" disabled="#{manterAutorMB.registroSalvo}"/>
 						</h:column>
-						<h:column>
-							<h:selectBooleanCheckbox value="#{autor.excluir}" disabled="#{manterAutorMB.registroSalvo}"/>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.excluir']}</f:facet>
+							<h:selectBooleanCheckbox value="#{autor.excluir}" disabled="#{manterAutorMB.registroSalvo}" styleClass="dataColumnExcluir"/>
 						</h:column>
 					</h:dataTable>
 				</h:panelGroup>
