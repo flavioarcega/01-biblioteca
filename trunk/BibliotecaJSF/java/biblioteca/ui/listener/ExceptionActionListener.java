@@ -2,12 +2,15 @@ package biblioteca.ui.listener;
 
 import javax.el.MethodExpression;
 import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 public class ExceptionActionListener implements ActionListener {
 
@@ -34,7 +37,10 @@ public class ExceptionActionListener implements ActionListener {
 				 * para não serem exibidas
 				 * 
 				 */
-				e.printStackTrace();
+				if (e.getCause() instanceof ConstraintViolationException || e.getCause().getCause() instanceof ConstraintViolationException || e.getCause().getCause().getCause() instanceof ConstraintViolationException)
+					FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Registro possui relacionamento e não pode ser excluído!"));
+				else
+					e.getCause().printStackTrace();
 			}
 		}
 

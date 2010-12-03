@@ -22,10 +22,8 @@ public class AutorBC implements Serializable {
 	public List<Autor> salvarAutores(List<Autor> lista) {
 		try {
 			for (Autor autor : lista)
-				if (autor.getNome().isEmpty() || autor.getExcluir()) {
-					autorDAO.delete(autor);
-					autor.setExcluir(true);
-				}
+				if (autor.getNome().isEmpty() || autor.getExcluir())
+					autor.setExcluir(autorDAO.delete(autor));
 			List<Autor> listaRetorno = new ArrayList<Autor>();
 			for (Autor autor : lista) 
 				if (!autor.getExcluir()) {
