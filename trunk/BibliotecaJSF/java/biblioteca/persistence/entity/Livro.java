@@ -20,17 +20,17 @@ public class Livro implements Serializable {
 	private String id;
 
 	@Column
-	private int anoedicao;
-
-	@Column
-	private short edicao;
-
-	@Column
 	private String isbn;
 
 	@Column
 	private String titulo;
 	
+	@Column
+	private short edicao;
+
+	@Column
+	private int anoEdicao;
+
 	@Transient
 	private Boolean excluir;
 
@@ -59,12 +59,12 @@ public class Livro implements Serializable {
 		this.id = id;
 	}
 
-	public int getAnoedicao() {
-		return this.anoedicao;
+	public int getAnoEdicao() {
+		return this.anoEdicao;
 	}
 
-	public void setAnoedicao(int anoedicao) {
-		this.anoedicao = anoedicao;
+	public void setAnoEdicao(int anoEdicao) {
+		this.anoEdicao = anoEdicao;
 	}
 
 	public short getEdicao() {
