@@ -36,7 +36,8 @@ public class MenuMB {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public Object login() {
+	
+	public Object efetuarLogin() {
 		usuario = usuarioBC.pesquisarPorLogin(login);
 		return null;
 	}

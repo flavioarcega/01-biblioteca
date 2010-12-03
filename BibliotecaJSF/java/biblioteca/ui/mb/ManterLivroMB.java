@@ -45,7 +45,10 @@ public class ManterLivroMB implements Serializable {
 	}
 	
 	public Object incluir() {
-		livros.add(new Livro());
+		Livro livro = new Livro();
+		livro.setAutor(new Autor());
+		livro.setEditora(new Editora());
+		livros.add(livro);
 		registroSalvo = false;
 		
 		return NavigationEnum.SELF;

@@ -14,9 +14,9 @@
 		            <h:outputLabel value="#{bundle['label.login']}" for="login"/>
 		            <h:inputText id="login" value="#{menuMB.login}" size="40" maxlength="80"/>
 		            <h:outputLabel value="#{bundle['label.senha']}" for="senha"/>
-		            <h:inputSecret id="senha" value="#{menuMB.senha}" actionListener="#{menuMB.login}" size="40" maxlength="80"/>
+		            <h:inputSecret id="senha" value="#{menuMB.senha}" actionListener="#{menuMB.efetuarLogin}" size="40" maxlength="80"/>
 		        </h:panelGrid>
-		        <h:commandButton actionListener="#{menuMB.login}" value="Login"/>
+		        <h:commandButton actionListener="#{menuMB.efetuarLogin}" value="Login"/>
 	        </h:panelGroup>
 	        <h:panelGroup columns="2" rendered="#{menuMB.usuario!=null}">
 	        	Seja bem vindo #{menuMB.usuario.nome}!
