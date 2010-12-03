@@ -19,13 +19,20 @@ public class Livro implements Serializable {
 	@Column(name="ID_LIVRO", unique=true, nullable=false)
 	private String id;
 
+	@Column
 	private int anoedicao;
 
+	@Column
 	private short edicao;
 
+	@Column
 	private String isbn;
 
+	@Column
 	private String titulo;
+	
+	@Transient
+	private Boolean excluir;
 
 	//bi-directional many-to-one association to Emprestimo
 	@OneToMany(mappedBy="livro")
@@ -107,5 +114,12 @@ public class Livro implements Serializable {
 	public void setEditora(Editora editora) {
 		this.editora = editora;
 	}
-	
+
+	public Boolean getExcluir() {
+		return excluir;
+	}
+
+	public void setExcluir(Boolean excluir) {
+		this.excluir = excluir;
+	}
 }

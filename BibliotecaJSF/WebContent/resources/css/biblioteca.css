@@ -102,8 +102,19 @@ div.textoExplicativo {
 
 div.paragrafoTextoExplicativo {
     margin-left: 2em;
-}
+}JSF
 
 em.counter {
     display: block;
+}
+
+.dataColumnHeader {
+	border: solid #ADAD94 1px;
+	background-color: lightgray;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.dataColumnExcluir {
+	margin-left: 45px;
 }

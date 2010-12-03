@@ -6,10 +6,11 @@ package biblioteca.ui.mb;
  * Desta forma, foi criado o Enum para centralizar a manutencao destes retornos de navegacao.
  */
 public enum NavigationEnum {
-	SELF (null), 							// Permanecer na mesma pagina
-	INDEX ("index"), 						// Pagina inicial
-	MANTER_USUARIO ("manterUsuario"),		// Manutencao de usuarios
-	MANTER_AUTOR ("manterAutor");		// Manutencao de autores
+	SELF			(null),					// Permanecer na mesma pagina
+	INDEX			("index"),				// Pagina inicial
+	MANTER_AUTOR	("manterAutor"),		// Manutencao de autores
+	MANTER_EDITORA	("manterEditora"),		// Manutencao de editoras
+	MANTER_USUARIO	("manterUsuario");		// Manutencao de usuarios
 	
 	private NavigationEnum(String navigationRule) {
 		this.navigationRule = navigationRule;

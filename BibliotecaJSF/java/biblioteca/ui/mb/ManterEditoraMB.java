@@ -37,17 +37,17 @@ public class ManterEditoraMB implements Serializable {
 	}
 
 	public Object salvar() {
-		this.setEditoraes(editoraBC.salvarEditoras(this.getEditoraes()));
+		this.setEditoras(editoraBC.salvarEditoras(this.getEditoras()));
 		registroSalvo = true;
 		
 		return NavigationEnum.SELF;
 	}
 
-	public List<Editora> getEditoraes() {
+	public List<Editora> getEditoras() {
 		return editoras;
 	}
 
-	public void setEditoraes(List<Editora> editoras) {
+	public void setEditoras(List<Editora> editoras) {
 		this.editoras = editoras;
 	}
 
