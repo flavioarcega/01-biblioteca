@@ -1,6 +1,7 @@
 package biblioteca.bc;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -37,5 +38,9 @@ public class UsuarioBC implements Serializable {
 
 	public Boolean excluir(Usuario usuario) {
 		return usuarioDAO.delete(usuario);
+	}
+	
+	public List<Usuario> listarUsuarios() {
+		return usuarioDAO.listAll();
 	}
 }
