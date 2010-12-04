@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:composition template="/WEB-INF/template/default.xhtml">
+		<ui:define name="title">
+			<h:outputText value="#{bundle['titulo.manterEmprestimo']}"/>
+		</ui:define>
+		
+		<ui:define name="content">
+			<h:panelGroup>
+				<fieldset class="camposLinha">
+					<legend><h:outputText value="#{bundle['label.pesquisar']}"/></legend>
+					<div class="campo">
+						<div class="campoLabel">
+							<h:outputLabel value="#{bundle['label.usuario']}" for="usuario"/>
+						</div>
+						<div class="campoCorpo">
+							<h:selectOneListbox id="usuario" value="#{manterEmprestimoMB.login}" size="1" disabled="#{!manterEmprestimoMB.fasePesquisa}">
+								<f:selectItems value="#{manterEmprestimoMB.usuarios}"/>
+							</h:selectOneListbox>
+						</div>
+					</div>
+					<div class="campo">
+						<div class="campoLabel">
+							<h:outputLabel value="#{bundle['label.exemplar']}" for="exemplar"/>
+						</div>
+						<div class="campoCorpo">
+							<h:inputText id="exemplar" value="#{manterEmprestimoMB.exemplar}" disabled="#{!manterEmprestimoMB.fasePesquisa}"/>
+						</div>
+					</div>
+					<div class="campo">
+						<div class="campoLabel">
+							<h:outputLabel value="#{bundle['label.isbn']}" for="isbn"/>
+						</div>
+						<div class="campoCorpo">
+							<h:inputText id="isbn" value="#{manterEmprestimoMB.isbn}" disabled="#{!manterEmprestimoMB.fasePesquisa}"/>
+						</div>
+					</div>
+					<div class="campo">
+						<div class="campoLabel">
+							<h:outputLabel value="#{bundle['label.titulo']}" for="titulo"/>
+						</div>
+						<div class="campoCorpo">
+							<h:inputText id="titulo" value="#{manterEmprestimoMB.titulo}" disabled="#{!manterEmprestimoMB.fasePesquisa}"/>
+						</div>
+					</div>
+					<div class="campo">
+						<h:commandButton value="#{bundle['label.pesquisar']}" action="#{manterEmprestimoMB.pesquisar}" disabled="#{!manterEmprestimoMB.fasePesquisa}"/>
+					</div>
+				</fieldset>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{manterEmprestimoMB.emprestimos ne null}">
+				<fieldset class="camposLinha"> 
+					<legend><h:outputText value="#{bundle['titulo.manterEmprestimo']}"/></legend>
+					<h:dataTable id="emprestimoTable" value="#{manterEmprestimoMB.emprestimos}" var="emprestimo">
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.exemplar']}</f:facet>
+							<h:inputText id="idLivro" value="#{emprestimo.livro.id}" disabled="#{manterEmprestimoMB.registroSalvo}" size="10">
+								<f:ajax execute="@this" listener="#{manterEmprestimoMB.atualizarLivro}" render="isbn titulo" />
+							</h:inputText>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.isbn']}</f:facet>
+							<h:inputText id="isbn" value="#{emprestimo.livro.isbn}" disabled="true"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.titulo']}</f:facet>
+							<h:inputText id="titulo" value="#{emprestimo.livro.titulo}" disabled="true"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.dataEmprestimo']}</f:facet>
+							<h:inputText id="dataEmprestimo" value="#{emprestimo.dataEmprestimo}" disabled="true" size="10">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:inputText>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.dataProgramada']}</f:facet>
+							<h:inputText id="dataDevProg" value="#{emprestimo.dataDevolucaoProgramada}" disabled="true" size="10">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:inputText>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.dataDevolucao']}</f:facet>
+							<h:inputText id="DataDevEf" value="#{emprestimo.dataDevolucaoEfetiva}" disabled="true" size="10">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:inputText>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.devolver']}</f:facet>
+							<h:selectBooleanCheckbox id="dev" value="#{emprestimo.devolver}" disabled="#{!manterEmprestimoMB.editar}"  styleClass="dataColumnExcluir"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.renovar']}</f:facet>
+							<h:selectBooleanCheckbox id="ren" value="#{emprestimo.renovar}" disabled="#{!manterEmprestimoMB.editar}"  styleClass="dataColumnExcluir"/>
+						</h:column>
+					</h:dataTable>
+				</fieldset>
+				<fieldset class="barraBotao">
+					<div>
+						<h:commandButton value="#{bundle['label.incluir']}" action="#{manterEmprestimoMB.incluir}" rendered="#{manterEmprestimoMB.registroSalvo and !manterEmprestimoMB.editar}" />
+						<h:commandButton value="#{bundle['label.editar']}"  action="#{manterEmprestimoMB.editar}"  rendered="#{manterEmprestimoMB.registroSalvo and !manterEmprestimoMB.editar}" />
+						<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterEmprestimoMB.salvar}"  rendered="#{!manterEmprestimoMB.registroSalvo or manterEmprestimoMB.editar}"/>
+					</div>
+				</fieldset>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</html>

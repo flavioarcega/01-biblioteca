@@ -20,20 +20,15 @@ public class AutorBC implements Serializable {
 	}
 	
 	public List<Autor> salvarAutores(List<Autor> lista) {
-		try {
-			for (Autor autor : lista)
-				if (autor.getNome().isEmpty() || autor.getExcluir())
-					autor.setExcluir(autorDAO.delete(autor));
-			List<Autor> listaRetorno = new ArrayList<Autor>();
-			for (Autor autor : lista) 
-				if (!autor.getExcluir()) {
-					autor = autorDAO.insertOrUpdate(autor);
-					listaRetorno.add(autor);
-				}
-			return listaRetorno;
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		return null;
+		for (Autor autor : lista)
+			if (autor.getNome().isEmpty() || autor.getExcluir())
+				autor.setExcluir(autorDAO.delete(autor));
+		List<Autor> listaRetorno = new ArrayList<Autor>();
+		for (Autor autor : lista) 
+			if (!autor.getExcluir()) {
+				autor = autorDAO.insertOrUpdate(autor);
+				listaRetorno.add(autor);
+			}
+		return listaRetorno;
 	}
 }

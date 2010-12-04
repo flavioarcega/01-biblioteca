@@ -17,8 +17,12 @@
 				<h:panelGroup rendered="#{manterLivroMB.livros ne null}">
 					<h:dataTable id="livroTable" value="#{manterLivroMB.livros}" var="livro" styleClass="">
 						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.exemplar']}</f:facet>
+							<h:inputText value="#{livro.id}" disabled="true" size="12"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.isbn']}</f:facet>
-							<h:inputText value="#{livro.isbn}" disabled="#{manterLivroMB.registroSalvo}"/>
+							<h:inputText value="#{livro.isbn}" disabled="#{manterLivroMB.registroSalvo}" size="13"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.titulo']}</f:facet>
@@ -26,11 +30,11 @@
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.edicao']}</f:facet>
-							<h:inputText value="#{livro.edicao}" disabled="#{manterLivroMB.registroSalvo}"/>
+							<h:inputText value="#{livro.edicao}" disabled="#{manterLivroMB.registroSalvo}" size="10"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.anoEdicao']}</f:facet>
-							<h:inputText value="#{livro.anoEdicao}" disabled="#{manterLivroMB.registroSalvo}"/>
+							<h:inputText value="#{livro.anoEdicao}" disabled="#{manterLivroMB.registroSalvo}" size="10"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.autor']}</f:facet>

@@ -87,4 +87,10 @@ public class Usuario implements Serializable {
 		this.perfis = perfis;
 	}
 	
+	public Boolean isProfessor() {
+		for (Perfil perfil : this.perfis)
+			if (perfil.getId()==2) return true;
+		
+		return false;
+	}
 }

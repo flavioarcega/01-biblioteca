@@ -1,9 +1,19 @@
 package biblioteca.persistence.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 
 /**
@@ -18,25 +28,37 @@ public class Emprestimo implements Serializable {
 	@SequenceGenerator(name="EMPRESTIMO_IDEMPRESTIMO_GENERATOR", sequenceName="SQ_EMPRESTIMO_ID_EMPRESTIMO", allocationSize=0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EMPRESTIMO_IDEMPRESTIMO_GENERATOR")
 	@Column(name="ID_EMPRESTIMO", unique=true, nullable=false)
-	private int idEmprestimo;
+	private Integer id;
 
 	@Column(name="DATA_DEVOLUCAO_EFETIVA")
-	private Timestamp dataDevolucaoEfetiva;
+	private Date dataDevolucaoEfetiva;
 
 	@Column(name="DATA_DEVOLUCAO_PROGRAMADA")
-	private Timestamp dataDevolucaoProgramada;
+	private Date dataDevolucaoProgramada;
 
 	@Column(name="DATA_EMPRESTIMO")
-	private Timestamp dataEmprestimo;
+	private Date dataEmprestimo;
 
-	@Column(name="ID_ALUNO")
-	private int idAluno;
+	@Transient
+	private Boolean devolver;
 
-	@Column(name="ID_OPERADOR_DEVOLUCAO")
-	private int idOperadorDevolucao;
+	@Transient
+	private Boolean renovar;
 
-	@Column(name="ID_OPERADOR_LOCACAO")
-	private int idOperadorLocacao;
+	@Transient
+	private Boolean excluir;
+
+    @ManyToOne
+	@JoinColumn(name="ID_ALUNO")
+	private Usuario aluno;
+
+    @ManyToOne
+	@JoinColumn(name="ID_OPERADOR_DEVOLUCAO")
+	private Usuario operadorDevolucao;
+
+    @ManyToOne
+	@JoinColumn(name="ID_OPERADOR_LOCACAO")
+	private Usuario operadorLocacao;
 
 	//bi-directional many-to-one association to Emprestimo
     @ManyToOne
@@ -55,60 +77,60 @@ public class Emprestimo implements Serializable {
     public Emprestimo() {
     }
 
-	public int getIdEmprestimo() {
-		return this.idEmprestimo;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIdEmprestimo(int idEmprestimo) {
-		this.idEmprestimo = idEmprestimo;
+	public void setId(Integer idEmprestimo) {
+		this.id = idEmprestimo;
 	}
 
-	public Timestamp getDataDevolucaoEfetiva() {
+	public Date getDataDevolucaoEfetiva() {
 		return this.dataDevolucaoEfetiva;
 	}
 
-	public void setDataDevolucaoEfetiva(Timestamp dataDevolucaoEfetiva) {
+	public void setDataDevolucaoEfetiva(Date dataDevolucaoEfetiva) {
 		this.dataDevolucaoEfetiva = dataDevolucaoEfetiva;
 	}
 
-	public Timestamp getDataDevolucaoProgramada() {
+	public Date getDataDevolucaoProgramada() {
 		return this.dataDevolucaoProgramada;
 	}
 
-	public void setDataDevolucaoProgramada(Timestamp dataDevolucaoProgramada) {
+	public void setDataDevolucaoProgramada(Date dataDevolucaoProgramada) {
 		this.dataDevolucaoProgramada = dataDevolucaoProgramada;
 	}
 
-	public Timestamp getDataEmprestimo() {
+	public Date getDataEmprestimo() {
 		return this.dataEmprestimo;
 	}
 
-	public void setDataEmprestimo(Timestamp dataEmprestimo) {
+	public void setDataEmprestimo(Date dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 
-	public int getIdAluno() {
-		return this.idAluno;
+	public Usuario getAluno() {
+		return this.aluno;
 	}
 
-	public void setIdAluno(int idAluno) {
-		this.idAluno = idAluno;
+	public void setAluno(Usuario aluno) {
+		this.aluno = aluno;
 	}
 
-	public int getIdOperadorDevolucao() {
-		return this.idOperadorDevolucao;
+	public Usuario getOperadorDevolucao() {
+		return this.operadorDevolucao;
 	}
 
-	public void setIdOperadorDevolucao(int idOperadorDevolucao) {
-		this.idOperadorDevolucao = idOperadorDevolucao;
+	public void setOperadorDevolucao(Usuario operadorDevolucao) {
+		this.operadorDevolucao = operadorDevolucao;
 	}
 
-	public int getIdOperadorLocacao() {
-		return this.idOperadorLocacao;
+	public Usuario getOperadorLocacao() {
+		return this.operadorLocacao;
 	}
 
-	public void setIdOperadorLocacao(int idOperadorLocacao) {
-		this.idOperadorLocacao = idOperadorLocacao;
+	public void setOperadorLocacao(Usuario operadorLocacao) {
+		this.operadorLocacao = operadorLocacao;
 	}
 
 	public Emprestimo getEmprestimo() {
@@ -134,5 +156,28 @@ public class Emprestimo implements Serializable {
 	public void setLivro(Livro livro) {
 		this.livro = livro;
 	}
-	
+
+	public Boolean getDevolver() {
+		return devolver;
+	}
+
+	public void setDevolver(Boolean devolver) {
+		this.devolver = devolver;
+	}
+
+	public Boolean getRenovar() {
+		return renovar;
+	}
+
+	public void setRenovar(Boolean renovar) {
+		this.renovar = renovar;
+	}
+
+	public Boolean getExcluir() {
+		return excluir;
+	}
+
+	public void setExcluir(Boolean excluir) {
+		this.excluir = excluir;
+	}
 }
