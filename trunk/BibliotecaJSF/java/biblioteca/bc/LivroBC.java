@@ -38,4 +38,15 @@ public class LivroBC implements Serializable {
 		}
 		return null;
 	}
+	
+	
+	public Livro buscarLivroPorExemplar(Integer exemplar) {
+		if(!exemplar.equals(0))
+		{
+			Livro livro=livroDAO.findLivroByExemplar(exemplar);
+			return livro; 
+		}
+		else return null;
+	}
+
 }
