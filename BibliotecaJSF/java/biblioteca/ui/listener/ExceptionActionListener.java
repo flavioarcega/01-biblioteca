@@ -38,8 +38,8 @@ public class ExceptionActionListener implements ActionListener {
 				 * 
 				 */
 				if (e.getCause() instanceof ConstraintViolationException || e.getCause().getCause() instanceof ConstraintViolationException || e.getCause().getCause().getCause() instanceof ConstraintViolationException)
-					FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Registro possui relacionamento e n√£o pode ser exclu√≠do!"));
-				else
+					FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Registro possui relacionamento e n„o pode ser excluÌdo!"));
+				//else
 					e.getCause().printStackTrace();
 			}
 		}

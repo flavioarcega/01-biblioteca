@@ -46,6 +46,8 @@ div.camposLinha div.campo {
     float:left;
     margin-left: 0.3em;
     margin-right: 0.5em;
+    vertical-align: top;
+    
 }
 
 fieldset {

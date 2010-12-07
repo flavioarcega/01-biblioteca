@@ -49,7 +49,7 @@
 						</div>
 					</div>
 					<div class="campo">
-						<h:commandButton value="#{bundle['label.pesquisar']}" action="#{manterEmprestimoMB.pesquisar}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}"/>
+						<h:commandButton value="#{bundle['label.pesquisar']}" action="#{manterEmprestimoMB.pesquisarEmprestimo}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}"/>
 					</div>
 				</fieldset>
 			</h:panelGroup>
@@ -67,12 +67,8 @@
 					<legend><h:outputText value="#{bundle['titulo.manterEmprestimo']}"/></legend>
 					<h:dataTable id="emprestimoTable" value="#{manterEmprestimoMB.emprestimos}" var="emprestimo">
 						<h:column headerClass="dataColumnHeader">
-							<f:facet name="header">#{bundle['label.selecionar']}</f:facet>
-							<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterEmprestimoMB.salvar}"  rendered="#{manterEmprestimoMB.editandoEmprestimo}"/>
-						</h:column>
-						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.exemplar']}</f:facet>
-							<h:inputText id="idLivro" value="#{manterEmprestimoMB.livroId}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}" size="12"/>
+							<h:inputText id="idLivro" value="#{emprestimo.livro.id}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}" size="12"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.isbn']}</f:facet>
@@ -80,7 +76,7 @@
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.titulo']}</f:facet>
-							<h:inputText id="tituloEmprestimo" value="#{emprestimo.livro.titulo}" disabled="true" size="10"/>
+							<h:inputText id="tituloEmprestimo" value="#{emprestimo.livro.titulo}" disabled="true" size="30"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.dataEmprestimo']}</f:facet>
@@ -102,7 +98,7 @@
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.devolver']}</f:facet>
-							<h:selectBooleanCheckbox id="dev" value="#{emprestimo.devolver}" disabled="#{!manterEmprestimoMB.editandoEmprestimo  }"  styleClass="dataColumnExcluir"/>
+							<h:selectBooleanCheckbox id="dev" value="#{emprestimo.devolver}"  disabled="#{!manterEmprestimoMB.editandoEmprestimo  }"  styleClass="dataColumnExcluir"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.renovar']}</f:facet>
@@ -112,8 +108,9 @@
 				</fieldset>
 				<fieldset class="barraBotao">
 					<div>
-						<h:commandButton value="#{bundle['label.consultar']}" action="#{manterEmprestimoMB.consultar}" rendered="#{manterEmprestimoMB.consultandoEmprestimo}" />
-						<h:commandButton value="#{bundle['label.limpar']}"  action="#{manterEmprestimoMB.limpar}"  rendered="#{manterEmprestimoMB.editandoEmprestimo or manterEmprestimoMB.consultandoEmprestimo}" />
+						<h:commandButton value="#{bundle['label.consultar']}" action="#{manterEmprestimoMB.consultarExemplar}" rendered="#{manterEmprestimoMB.consultandoEmprestimo}" />
+						<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterEmprestimoMB.salvarEmprestimo}"  rendered="#{manterEmprestimoMB.editandoEmprestimo}"/>
+						<h:commandButton value="#{bundle['label.limpar']}"  action="#{manterEmprestimoMB.limpar}"  rendered="#{true}" />
 					</div>
 				</fieldset>
 			</h:panelGroup>

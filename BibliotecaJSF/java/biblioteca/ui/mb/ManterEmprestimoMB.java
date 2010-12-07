@@ -24,7 +24,6 @@ public class ManterEmprestimoMB implements Serializable {
 	private EmprestimoBC emprestimoBC;
 	private UsuarioBC usuarioBC;
 	private LivroBC livroBC;
-	//private LivroDAO livroDAO;
 	private List<Emprestimo> emprestimos;
 	//--- campos de pesquisa ---
 	private List<SelectItem> usuarios;
@@ -34,13 +33,12 @@ public class ManterEmprestimoMB implements Serializable {
 	private String  titulo;
 	//-- campos de emprestimo
 	private Boolean itemSelecionado;
-	private Integer livroId;
 	private Boolean consultandoEmprestimo;
-	//private Boolean mostrandoEmprestimo;
 	private Boolean editandoEmprestimo;
 	private String mensagemEmprestimo;
 	
-	public ManterEmprestimoMB() {
+	public ManterEmprestimoMB()
+	{
 		usuarioBC = new UsuarioBC();
 		usuarios = new ArrayList<SelectItem>();
 		for (Usuario usuario : usuarioBC.listarUsuarios()) 
@@ -52,79 +50,66 @@ public class ManterEmprestimoMB implements Serializable {
 		livroBC = new LivroBC();
 		emprestimoBC = new EmprestimoBC();
 
-		emprestimos = new ArrayList<Emprestimo>();
-		Emprestimo emprestimo = new Emprestimo();
-		emprestimos.add(emprestimo);
+		emprestimos=criarEmprestimoVazio();
 		
-		mensagemEmprestimo = "";
+		mensagemEmprestimo = null;
 
 		editandoEmprestimo = false;
 		consultandoEmprestimo = true;
 	}
 	
-	public Object pesquisar() {
-		emprestimos = emprestimoBC.pesquisarEmprestimo(login, exemplar, isbn, titulo);
-		if(emprestimos.size()==0) //não existe emprestimo, criar esqueleto vazio
-		{
-			emprestimos = new ArrayList<Emprestimo>();
-			Emprestimo emprestimo = new Emprestimo();
-			emprestimos.add(emprestimo);
-			livroId=null;
-			editandoEmprestimo = false;
-			consultandoEmprestimo = true;
-		}
-		else //existe emprestimos, alterar para editar
-		{
-			
-			livroId=null;
-			editandoEmprestimo = true;
-			consultandoEmprestimo = false;
-		}
-		
-		mensagemEmprestimo = emprestimoBC.getMensagemEmprestimo();
-		
-		return NavigationEnum.SELF;
-	}
 	
-	public Object consultar() {
-		Integer exemplarEmprestimo=livroId; 
-		if (exemplarEmprestimo==null) //campo do exemplar vazio, retorna para consulta
+	/*
+	 * método é invocado somente com um emprestimo (esqueleto previamente colocado no Form)
+	 * na lista de emprestimos para consultar exemplar 
+	 */
+	public Object consultarExemplar()
+	{
+		if(emprestimos.size()==0 || emprestimos.size()>1)//campo vazio ou lista de emprestimos na tela -> consulta somente um item
 		{
-			mensagemEmprestimo="";
+			emprestimos=criarEmprestimoVazio();
+			mensagemEmprestimo=null;
+			editandoEmprestimo = false;
+			consultandoEmprestimo = true;
+			return NavigationEnum.SELF;
+		}
+
+		Integer exemplarEmprestimo=emprestimos.get(0).getLivro().getId();//id do livro preenchido no esqueleto 
+		if (exemplarEmprestimo==null)
+		{ 
+			//campo do exemplar vazio, retorna para consulta
+			mensagemEmprestimo="Exemplar não foi fornecido";
 			editandoEmprestimo = false;
 			consultandoEmprestimo = true;
 		}
-		else //campo exemplar preenchido
+		else 
 		{
-		
-			//busca se existe emprestimo
-			emprestimos = emprestimoBC.pesquisarEmprestimo("", exemplarEmprestimo, "", "");
-			if(emprestimos.size()==0)// não há empréstimo para o exemplar solicitado
+			//campo exemplar preenchido
+			emprestimos = emprestimoBC.consultarExemplar(exemplarEmprestimo);
+			if(emprestimos.size()==0) // não há empréstimo para o exemplar solicitado
 			{	//esqueleto de emprestimo NOVO
-				emprestimos = new ArrayList<Emprestimo>();
-				Emprestimo emprestimo = new Emprestimo();
 				Livro livro=livroBC.buscarLivroPorExemplar(exemplarEmprestimo);
-				emprestimo.setLivro(livro);
-				emprestimo.setAluno(usuarioBC.pesquisarPorLogin(this.getLogin()));
-				emprestimo.setOperadorDevolucao(this.getUsuarioLogado());
-				emprestimo.setOperadorLocacao(this.getUsuarioLogado());
-				emprestimos.add(emprestimo);
 				if(livro==null)// livro do exemplar não existe
 				{
+					emprestimos=criarEmprestimoVazio();
+
 					mensagemEmprestimo = "Item informado não existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro não exista
 					editandoEmprestimo = false;
 					consultandoEmprestimo = true;
 				}
 				else //livro existe
 				{
-					mensagemEmprestimo="";
+					emprestimos = criarEmprestimoVazio();
+					emprestimos.get(0).setLivro(livro);
+
+					mensagemEmprestimo=null;
 					editandoEmprestimo = true;
 					consultandoEmprestimo = false;
 				}
 			}
-			else //emprestimo existente (devolver ou renovar)
+			else //emprestimo existe para o exemplar
 			{	
-				//var emprestimos contém os dados do emprestimo retornados da persistencia
+				//var emprestimos contém os dados do emprestimo retornados da camada de persistencia
 				mensagemEmprestimo = emprestimoBC.getMensagemEmprestimo();
 				editandoEmprestimo = true;
 				consultandoEmprestimo = false;
@@ -133,106 +118,124 @@ public class ManterEmprestimoMB implements Serializable {
 		return NavigationEnum.SELF;
 	}
 
+	/*
+	 * pesquisa emprestimos existentes para os critérios do Form
+	 * retorna lista de emprestimos ou esqueleto vazio
+	 */
+	public Object pesquisarEmprestimo()
+	{
+		emprestimos = emprestimoBC.pesquisarEmprestimo(login, exemplar, isbn, titulo);
+		if(emprestimos.size()==0) // não há empréstimo para o exemplar solicitado
+		{	
+			emprestimos=criarEmprestimoVazio();
+			editandoEmprestimo = false;
+			consultandoEmprestimo = true;
+		}
+		else 
+		{	
+			//var emprestimos contém os dados do emprestimo retornados da camada de persistencia
+			//preparar para devolver ou renovar
+			editandoEmprestimo = true;
+			consultandoEmprestimo = false;
+		}
+		mensagemEmprestimo = emprestimoBC.getMensagemEmprestimo();
+		return NavigationEnum.SELF;
+	}
 
-	public Object salvar() {
+	
+	
+	/*
+	 *  Método pode ser invocado com um emprestimo novo ou com uma lista de 
+	 *  empréstimos retornados da consulta.
+	 *  Um empréstimo novo não tem data de retirada.
+	 */
+	public Object salvarEmprestimo()
+	{
 		boolean devolverFlag=false;
 		boolean renovarFlag=false;
 		
-		if (emprestimos.size()==1)
+
+		for (Emprestimo emprestimo : emprestimos)
 		{
-			Emprestimo emprestimo=emprestimos.get(0);
-			Integer exemplarEmprestimo=livroId;  
-			if(exemplarEmprestimo==null)
+			//empréstimo novo, Form com dados da consulta
+			if(emprestimo.getDataEmprestimo()==null)
 			{
-				mensagemEmprestimo="";
-				editandoEmprestimo = false;
-				consultandoEmprestimo = true;
-				return NavigationEnum.SELF;
-			}
-			else
-			{
-				devolverFlag=emprestimo.getDevolver()==null?false:emprestimo.getDevolver();
-				renovarFlag=emprestimo.getRenovar()==null?false:emprestimo.getRenovar();
 
-				//se campos devolver e renovar vazios então NOVO emprestimo
-				if(devolverFlag)
+				Livro livro=livroBC.buscarLivroPorExemplar(emprestimo.getLivro().getId()); //verificar novamente se livro existe
+				if(livro==null)// livro não existe
 				{
-					emprestimo.setDevolver(true);
-					emprestimo.setRenovar(false); //por garantia....
+					emprestimos=criarEmprestimoVazio();
+					mensagemEmprestimo = "Item informado não existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro não exista
+					editandoEmprestimo = false;
+					consultandoEmprestimo = true;
+					return NavigationEnum.SELF;
 				}
-				else if(renovarFlag)
+				else //livro existe e emprestimo é novo
 				{
-					emprestimo.setRenovar(true); 
-					emprestimo.setDevolver(false);//por garantia....
-
-				}
-				else// emprestimo NOVO
-				{
-					emprestimos = new ArrayList<Emprestimo>();
-					//Emprestimo emprestimo = new Emprestimo();
-					Livro livro=livroBC.buscarLivroPorExemplar(exemplarEmprestimo);
 					emprestimo.setRenovar(false); 
 					emprestimo.setDevolver(false);
 					emprestimo.setLivro(livro);
 					emprestimo.setAluno(usuarioBC.pesquisarPorLogin(this.getLogin()));
 					emprestimo.setOperadorDevolucao(this.getUsuarioLogado());
 					emprestimo.setOperadorLocacao(this.getUsuarioLogado());
-					emprestimos.add(emprestimo);
-
 				}
-				//se não for devolver ou renova então é NOVO emprestimo
-
-				emprestimoBC.salvarEmprestimos(login,emprestimos);
-				mensagemEmprestimo=emprestimoBC.getMensagemEmprestimo();
-
-				editandoEmprestimo = false;
-				consultandoEmprestimo = true;
-				return NavigationEnum.SELF;
 			}
-		}
-		else //mais de um, porém somente um selecionado
-		{
-			for (Emprestimo emprestimo : emprestimos)
+			else //empréstimo existente, devolver ou renovar
 			{
-					devolverFlag=emprestimo.getDevolver()==null?false:emprestimo.getDevolver();
-					renovarFlag=emprestimo.getRenovar()==null?false:emprestimo.getRenovar();
-
-					if(devolverFlag)
-					{
-						emprestimo.setDevolver(true);
-						emprestimo.setRenovar(false); //por garantia....
-					}
-					else if(renovarFlag)
-					{
-						emprestimo.setRenovar(true); 
-						emprestimo.setDevolver(false);//por garantia....
-
-					}
-
-					emprestimoBC.salvarEmprestimos(login,emprestimos);
-					mensagemEmprestimo=emprestimoBC.getMensagemEmprestimo();
-
-					editandoEmprestimo = false;
-					consultandoEmprestimo = true;
-					return NavigationEnum.SELF;
-
+				devolverFlag=emprestimo.getDevolver()==null?false:emprestimo.getDevolver();
+				renovarFlag=emprestimo.getRenovar()==null?false:emprestimo.getRenovar();
+				if(devolverFlag && renovarFlag)
+				{
+					emprestimo.setDevolver(true);
+					emprestimo.setRenovar(true); 
 				}
-			}
+				else if(devolverFlag)
+				{
+					emprestimo.setDevolver(true);
+					emprestimo.setRenovar(false); //por garantia....
+					emprestimo.setOperadorDevolucao(this.getUsuarioLogado());
+					emprestimo.setOperadorLocacao(this.getUsuarioLogado());
+				}
+				else if(renovarFlag)
+				{
+					emprestimo.setRenovar(true); 
+					emprestimo.setDevolver(false);//por garantia....
+					emprestimo.setOperadorDevolucao(this.getUsuarioLogado());
+					emprestimo.setOperadorLocacao(this.getUsuarioLogado());
+				}
+			}	
+		}
+		emprestimoBC.salvarEmprestimos(emprestimos);
+		mensagemEmprestimo=emprestimoBC.getMensagemEmprestimo();
+
+		editandoEmprestimo = false;
+		consultandoEmprestimo = true;
 		return NavigationEnum.SELF;
+
 	}
 	
 	public Object limpar()
 	{
-		emprestimos = new ArrayList<Emprestimo>();
-		Emprestimo emprestimo = new Emprestimo();
-		emprestimos.add(emprestimo);
-		mensagemEmprestimo="";
-		livroId=null;
+		emprestimos=criarEmprestimoVazio();
+		mensagemEmprestimo=null;
 		editandoEmprestimo = false;
 		consultandoEmprestimo = true;
 
 		return NavigationEnum.SELF;
 		
+	}
+	
+	
+	private List<Emprestimo> criarEmprestimoVazio()
+	{
+		exemplar=null;
+		emprestimos=null;
+		Livro livro=new Livro();
+		emprestimos = new ArrayList<Emprestimo>();
+		Emprestimo emprestimo = new Emprestimo();
+		emprestimo.setLivro(livro);
+		emprestimos.add(emprestimo);
+		return emprestimos;
 	}
 	
 	
@@ -300,15 +303,6 @@ public class ManterEmprestimoMB implements Serializable {
 		this.mensagemEmprestimo = mensagemEmprestimo;
 	}
 
-	public Integer getLivroId()
-	{
-		return livroId;
-	}
-
-	public void setLivroId(Integer livroId)
-	{
-		this.livroId = livroId;
-	}
 
 	public Boolean getConsultandoEmprestimo()
 	{
@@ -362,13 +356,6 @@ public class ManterEmprestimoMB implements Serializable {
 
  */
  
-/*public Object editar() {
-	registroSalvo = true;
-	fasePesquisa = false;
-	editar= true;
-	
-	return NavigationEnum.SELF;
-}*/
 
 	/*public void atualizarLivro(AjaxBehaviorEvent ev) {
 	Integer id = Integer.valueOf(((HtmlInputText) ev.getComponent()).getValue().toString());

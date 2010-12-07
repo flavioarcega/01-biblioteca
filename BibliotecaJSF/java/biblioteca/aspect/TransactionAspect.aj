@@ -2,8 +2,8 @@ package biblioteca.aspect;
 
 import biblioteca.persistence.dao.AbstractDAO;
 import biblioteca.util.FacesUtil;
-
-public aspect TransactionAspect {
+  
+public aspect TransactionAspect { 
 	pointcut executeTransaction() : execution(* biblioteca.bc.*BC.*(..));
 	before() : executeTransaction() {
 		FacesUtil.getRequestEntityManager().getTransaction().begin();
