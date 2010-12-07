@@ -15,15 +15,13 @@ public class EmprestimoDAO extends AbstractDAO<Emprestimo> {
 		super(Emprestimo.class);
 	}
 	
+
 	//retorna um emprestimo (lista com um unico item) do exemplar xx que não foi devolvido
-	public List<Emprestimo> findEmprestimoByExemplar(String login, Integer exemplar) {
-		//Query byExemplarQuery = this.getEntityManager().createQuery("delete from Emprestimo e");
-		Query byExemplarQuery = this.getEntityManager().createQuery("select object(c) from " + this.getEntityClassName() + " as c where c.aluno.login = ?1 and c.livro.id = ?2 and c.dataDevolucaoEfetiva is null" );
-		byExemplarQuery.setParameter(1, login);
-		byExemplarQuery.setParameter(2, exemplar);
+	public List<Emprestimo> findEmprestimoByExemplar(Integer exemplar) {
+		Query byExemplarQuery = this.getEntityManager().createQuery("select object(c) from " + this.getEntityClassName() + " as c where c.livro.id = ?1 and c.dataDevolucaoEfetiva is null" );
+		byExemplarQuery.setParameter(1, exemplar);
 		List<Emprestimo> lista=(List<Emprestimo>) byExemplarQuery.getResultList();
 		return lista;
-		//int deleted = byExemplarQuery.executeUpdate ();
 	}
 	
 	//retorna lista de emprestimos pendentes de um usuario
@@ -35,16 +33,16 @@ public class EmprestimoDAO extends AbstractDAO<Emprestimo> {
 	}
 
 	//retorna lista de emprestimos pendentes de um livro por isbn
-	public List<Emprestimo> findEmprestimoByISBN(String login, String isbn) {
+	public List<Emprestimo> findEmprestimoByISBN(String isbn) {
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("%");
 		sb.append(isbn);
 		sb.append("%");
 		
-		Query byExemplarQuery = this.getEntityManager().createQuery("select object(c) from " + this.getEntityClassName() + " as c where c.aluno.login = ?1 and c.livro.isbn like ?2 and c.dataDevolucaoEfetiva is null" );
+		Query byExemplarQuery = this.getEntityManager().createQuery("select object(c) from " + this.getEntityClassName() + " as c where c.livro.isbn like ?1 and c.dataDevolucaoEfetiva is null" );
 		
-		byExemplarQuery.setParameter(1, login);
-		byExemplarQuery.setParameter(2, sb.toString());
+		byExemplarQuery.setParameter(1, sb.toString());
 		List<Emprestimo> lista=(List<Emprestimo>) byExemplarQuery.getResultList();
 		return lista;  
 	}
@@ -56,11 +54,17 @@ public class EmprestimoDAO extends AbstractDAO<Emprestimo> {
 		sb.append(titulo);
 		sb.append("%");
 
-		Query byExemplarQuery = this.getEntityManager().createQuery("select object(c) from " + this.getEntityClassName() + " as c where c.aluno.login = ?1 and c.livro.titulo like ?2 and c.dataDevolucaoEfetiva is null" );
-		byExemplarQuery.setParameter(1, login);
-		byExemplarQuery.setParameter(2, sb.toString());
+		Query byExemplarQuery = this.getEntityManager().createQuery("select object(c) from " + this.getEntityClassName() + " as c where c.livro.titulo like ?1 and c.dataDevolucaoEfetiva is null" );
+		byExemplarQuery.setParameter(1, sb.toString());
 		List<Emprestimo> lista=(List<Emprestimo>) byExemplarQuery.getResultList();
 		return lista;  
 	}
 
+	public void deleteAll()
+	{
+		Query byExemplarQuery = this.getEntityManager().createQuery("delete from Emprestimo e");
+		int deleted = byExemplarQuery.executeUpdate ();
+	}
+
+	
 }

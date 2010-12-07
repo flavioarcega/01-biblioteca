@@ -18,15 +18,15 @@
 					<h:dataTable id="editoraTable" value="#{manterEditoraMB.editoras}" var="editora">
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.nome']}</f:facet>
-							<h:inputText value="#{editora.nome}" disabled="#{manterEditoraMB.registroSalvo}"/>
+							<h:inputText value="#{editora.nome}" disabled="#{manterEditoraMB.registroSalvo}" size="30"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.cidade']}</f:facet>
-							<h:inputText value="#{editora.cidade}" disabled="#{manterEditoraMB.registroSalvo}"/>
+							<h:inputText value="#{editora.cidade}" disabled="#{manterEditoraMB.registroSalvo}" size="30"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.pais']}</f:facet>
-							<h:inputText value="#{editora.pais}" disabled="#{manterEditoraMB.registroSalvo}"/>
+							<h:inputText value="#{editora.pais}" disabled="#{manterEditoraMB.registroSalvo}" size="30"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.excluir']}</f:facet>

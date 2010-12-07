@@ -18,7 +18,7 @@
 					<h:dataTable id="autorTable" value="#{manterAutorMB.autores}" var="autor" styleClass="">
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.nome']}</f:facet>
-							<h:inputText value="#{autor.nome}" disabled="#{manterAutorMB.registroSalvo}"/>
+							<h:inputText value="#{autor.nome}" disabled="#{manterAutorMB.registroSalvo}" size="30"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.anoNascimento']}</f:facet>
