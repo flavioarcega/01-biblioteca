@@ -16,7 +16,17 @@ public class EmprestimoDAO extends AbstractDAO<Emprestimo> {
 	}
 	
 
-	//retorna um emprestimo (lista com um unico item) do exemplar xx que não foi devolvido
+	//retorna a quantidade de emprestimos de um usuario
+	public int findQuantidadeEmprestimoByUsuario(String login) {
+		//Query byQuantidadeQuery = this.getEntityManager().createQuery("select count(object(c)) from " + this.getEntityClassName() + " as c where c.aluno.login = ?1 and c.dataDevolucaoEfetiva is null" );
+		Query byQuantidadeQuery = this.getEntityManager().createQuery("select count(*) from Emprestimo as c where c.aluno.login = ?1 and c.dataDevolucaoEfetiva is null" );
+		byQuantidadeQuery.setParameter(1, login);
+		Number countResult = (Number) byQuantidadeQuery.getSingleResult();
+		return countResult.intValue();
+	} 
+
+	
+	//retorna um emprestimo (lista com um unico item) do exemplar xx que nï¿½o foi devolvido
 	public List<Emprestimo> findEmprestimoByExemplar(Integer exemplar) {
 		Query byExemplarQuery = this.getEntityManager().createQuery("select object(c) from " + this.getEntityClassName() + " as c where c.livro.id = ?1 and c.dataDevolucaoEfetiva is null" );
 		byExemplarQuery.setParameter(1, exemplar);
@@ -35,6 +45,8 @@ public class EmprestimoDAO extends AbstractDAO<Emprestimo> {
 	//retorna lista de emprestimos pendentes de um livro por isbn
 	public List<Emprestimo> findEmprestimoByISBN(String isbn) {
 
+		if(isbn.equals("*"))
+			isbn="";
 		StringBuilder sb = new StringBuilder();
 		sb.append("%");
 		sb.append(isbn);

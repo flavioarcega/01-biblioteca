@@ -8,14 +8,19 @@ import java.util.List;
 
 import biblioteca.persistence.dao.EmprestimoDAO;
 import biblioteca.persistence.entity.Emprestimo;
+import biblioteca.persistence.entity.Perfil;
+import biblioteca.persistence.entity.Usuario;
 
 enum MENSAGEM {
-	 EMPRESTIMOSUCESSO("EmprÈstimo executado com sucesso"),
-	 EMPRESTIMOEXISTENTE("EmprÈstimo para o exemplar est· pendente de devoluÁ„o"),
-	 EMPRESTIMONAODISPONIVEL("N„o existe emprÈstimo para os critÈrios selecionados"),
-	 OPCAOINVALIDA("OpÁıes v·lidas: Devolver ou Renovar"),
-	 EXEMPLARNAODISPONIVEL("Exemplar est· emprestado"),
-	 EXEMPLARDISPONIVEL("Exemplar est· disponÌvel para emprÈstimo");
+	 EMPRESTIMOSUCESSO("Empr√©stimo executado com sucesso"),
+	 DEVOLUCAOSUCESSO("Devolu√ß√£o executada com sucesso"),
+	 RENOVACAOSUCESSO("Renova√ß√£o executada com sucesso"),
+	 EMPRESTIMOEXISTENTE("Empr√©stimo para o exemplar est√° pendente de devolu√ß√£o"),
+	 EMPRESTIMONAODISPONIVEL("N√£o existe empr√©stimo para os crit√©rios selecionados"),
+	 QUANTIDADEEMPRESTIMOLIMITE("Quantidade limite de empr√©stimos para usu√°rio atingida"),
+	 OPCAOINVALIDA("Op√ß√µes v√°lidas: Devolver ou Renovar"),
+	 EXEMPLARNAODISPONIVEL("Exemplar est√° emprestado"),
+	 EXEMPLARDISPONIVEL("Exemplar est√° dispon√≠vel para empr√©stimo");
 	 
 
 	 private String textoMensagem;
@@ -34,10 +39,12 @@ public class EmprestimoBC implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private EmprestimoDAO emprestimoDAO;
 	private String mensagemEmprestimo;
+	private UsuarioBC usuarioBC;
 
 	
 	public EmprestimoBC() {
 		emprestimoDAO = new EmprestimoDAO();
+		usuarioBC=new UsuarioBC();
 	}
 
 	
@@ -45,7 +52,7 @@ public class EmprestimoBC implements Serializable {
 		return emprestimoDAO.listAll();
 	}
 	
-	public List<Emprestimo> salvarEmprestimos(List<Emprestimo> emprestimos)
+	public List<Emprestimo> salvarEmprestimos(String login,List<Emprestimo> emprestimos)
 	{
 		
 		List<Emprestimo> listaRetorno = new ArrayList<Emprestimo>();
@@ -57,14 +64,15 @@ public class EmprestimoBC implements Serializable {
 				continue;
 			}
 			
-			else if (emprestimo.getDevolver())//devoluÁ„o
+			else if (emprestimo.getDevolver())//devoluÔøΩÔøΩo
 			{ 
 				emprestimo.setDataDevolucaoEfetiva(GregorianCalendar.getInstance().getTime());
 				
 				emprestimo = emprestimoDAO.insertOrUpdate(emprestimo);
+				mensagemEmprestimo=MENSAGEM.DEVOLUCAOSUCESSO.getMensagem();
 
 			}
-			else if (emprestimo.getRenovar()) //renovaÁ„o
+			else if (emprestimo.getRenovar()) //renovaÔøΩÔøΩo
 			{
 				emprestimo.setDataEmprestimo(GregorianCalendar.getInstance().getTime());
 				
@@ -76,9 +84,32 @@ public class EmprestimoBC implements Serializable {
 				emprestimo.setDataDevolucaoProgramada(data.getTime());
 
 				emprestimo = emprestimoDAO.insertOrUpdate(emprestimo);
+				mensagemEmprestimo=MENSAGEM.RENOVACAOSUCESSO.getMensagem();
+
 			}
-			else //emprestimo novo
+			else //emprestimo novo -- usa o login da combo de usuario para buscar o perfil
 			{
+				
+				Usuario u=emprestimo.getAluno();
+				int qtEmprestimo=emprestimoDAO.findQuantidadeEmprestimoByUsuario(login);
+				if (u.isProfessor())
+				{
+					if (qtEmprestimo>4)
+					{
+						mensagemEmprestimo=MENSAGEM.QUANTIDADEEMPRESTIMOLIMITE.getMensagem();
+						continue;
+					}
+				}	
+				else 
+				{
+					if(qtEmprestimo>2)
+					{
+						mensagemEmprestimo=MENSAGEM.QUANTIDADEEMPRESTIMOLIMITE.getMensagem();
+						continue;
+					}
+				}	
+					
+				
 				if(!emprestimoDAO.findEmprestimoByExemplar(emprestimo.getLivro().getId()).isEmpty())
 				{
 					mensagemEmprestimo=MENSAGEM.EMPRESTIMOEXISTENTE.getMensagem();
@@ -95,11 +126,10 @@ public class EmprestimoBC implements Serializable {
 				emprestimo.setDataDevolucaoProgramada(data.getTime());
 
 				emprestimo = emprestimoDAO.insertOrUpdate(emprestimo);
-				
+				mensagemEmprestimo=MENSAGEM.EMPRESTIMOSUCESSO.getMensagem();
+
 			}
 
-
-			mensagemEmprestimo=MENSAGEM.EMPRESTIMOSUCESSO.getMensagem();
 			listaRetorno.add(emprestimo);
 		}
 		return listaRetorno;
@@ -107,8 +137,9 @@ public class EmprestimoBC implements Serializable {
 
 	//pesquisa emprestimos existentes
 	public List<Emprestimo> pesquisarEmprestimo(String login, Integer exemplar, String isbn, String titulo) {
+		
 		List<Emprestimo> listaRetorno;
-		mensagemEmprestimo="";
+		mensagemEmprestimo=null;
 		if(!exemplar.equals(0)) //exemplar fornecido
 		{
 			listaRetorno=emprestimoDAO.findEmprestimoByExemplar(exemplar);
@@ -118,14 +149,13 @@ public class EmprestimoBC implements Serializable {
 		}		 
 		else if(isbn != "") //isbn fornecido
 		{
-			if(isbn.equals("deleteall"))
+			isbn=isbn.toUpperCase();
+			if(isbn.equals("DELETEALL")) //easter-egg do mal!!! 
 			{
 				emprestimoDAO.deleteAll();
 				return new ArrayList<Emprestimo>();
 			}
 	
-			
-			
 			listaRetorno=emprestimoDAO.findEmprestimoByISBN(isbn);
 			if(listaRetorno.size()==0)
 				mensagemEmprestimo=MENSAGEM.EMPRESTIMONAODISPONIVEL.getMensagem();
@@ -133,13 +163,14 @@ public class EmprestimoBC implements Serializable {
 		}
 		else if(titulo != "") //titulo fornecido
 		{
+			titulo=titulo.toUpperCase();
 			listaRetorno=emprestimoDAO.findEmprestimoByTitulo(login,titulo);
 			if(listaRetorno.size()==0)
 				mensagemEmprestimo=MENSAGEM.EMPRESTIMONAODISPONIVEL.getMensagem();
 			return listaRetorno; 
 			
 		}
-		else //se todos os campos estiverem vazios ent„o faz pesquisa somente pelo usuario selecionado na combo
+		else //se todos os campos estiverem vazios entao faz pesquisa somente pelo usuario selecionado na combo
 		{
 			listaRetorno=emprestimoDAO.findEmprestimoByUsuario(login);
 			if(listaRetorno.size()==0)

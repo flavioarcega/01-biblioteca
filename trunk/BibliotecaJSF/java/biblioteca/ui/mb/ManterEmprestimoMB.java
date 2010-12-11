@@ -60,7 +60,7 @@ public class ManterEmprestimoMB implements Serializable {
 	
 	
 	/*
-	 * método é invocado somente com um emprestimo (esqueleto previamente colocado no Form)
+	 * metodo  invocado somente com um emprestimo (esqueleto previamente colocado no Form)
 	 * na lista de emprestimos para consultar exemplar 
 	 */
 	public Object consultarExemplar()
@@ -78,7 +78,7 @@ public class ManterEmprestimoMB implements Serializable {
 		if (exemplarEmprestimo==null)
 		{ 
 			//campo do exemplar vazio, retorna para consulta
-			mensagemEmprestimo="Exemplar não foi fornecido";
+			mensagemEmprestimo="Exemplar nÃ£o foi fornecido";
 			editandoEmprestimo = false;
 			consultandoEmprestimo = true;
 		}
@@ -86,14 +86,14 @@ public class ManterEmprestimoMB implements Serializable {
 		{
 			//campo exemplar preenchido
 			emprestimos = emprestimoBC.consultarExemplar(exemplarEmprestimo);
-			if(emprestimos.size()==0) // não há empréstimo para o exemplar solicitado
+			if(emprestimos.size()==0) // nao ha emprestimo para o exemplar solicitado
 			{	//esqueleto de emprestimo NOVO
 				Livro livro=livroBC.buscarLivroPorExemplar(exemplarEmprestimo);
-				if(livro==null)// livro do exemplar não existe
+				if(livro==null)// livro do exemplar nao existe
 				{
 					emprestimos=criarEmprestimoVazio();
 
-					mensagemEmprestimo = "Item informado não existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro não exista
+					mensagemEmprestimo = "Item informado nÃ£o existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro nï¿½o exista
 					editandoEmprestimo = false;
 					consultandoEmprestimo = true;
 				}
@@ -109,7 +109,7 @@ public class ManterEmprestimoMB implements Serializable {
 			}
 			else //emprestimo existe para o exemplar
 			{	
-				//var emprestimos contém os dados do emprestimo retornados da camada de persistencia
+				//var emprestimos contï¿½m os dados do emprestimo retornados da camada de persistencia
 				mensagemEmprestimo = emprestimoBC.getMensagemEmprestimo();
 				editandoEmprestimo = true;
 				consultandoEmprestimo = false;
@@ -119,13 +119,33 @@ public class ManterEmprestimoMB implements Serializable {
 	}
 
 	/*
-	 * pesquisa emprestimos existentes para os critérios do Form
+	 * pesquisa emprestimos existentes para os critï¿½rios do Form
 	 * retorna lista de emprestimos ou esqueleto vazio
 	 */
 	public Object pesquisarEmprestimo()
 	{
+		mensagemEmprestimo=null;
+		boolean falhaValidacao=false;
+		if(isbn.length()>13)
+		{
+			mensagemEmprestimo="Isbn maior que 13 caracteres";
+			falhaValidacao=true;
+		}
+		if(titulo.length()>60)
+		{
+			mensagemEmprestimo="Titulo maior que 60 caracteres";
+			falhaValidacao=true;
+		}
+		if(falhaValidacao)
+		{
+			emprestimos=criarEmprestimoVazio();
+			editandoEmprestimo = false;
+			consultandoEmprestimo = true;
+			return NavigationEnum.SELF;
+		}
+		
 		emprestimos = emprestimoBC.pesquisarEmprestimo(login, exemplar, isbn, titulo);
-		if(emprestimos.size()==0) // não há empréstimo para o exemplar solicitado
+		if(emprestimos.size()==0) // nao ha emprestimo para o exemplar solicitado
 		{	
 			emprestimos=criarEmprestimoVazio();
 			editandoEmprestimo = false;
@@ -133,7 +153,7 @@ public class ManterEmprestimoMB implements Serializable {
 		}
 		else 
 		{	
-			//var emprestimos contém os dados do emprestimo retornados da camada de persistencia
+			//var emprestimos contem os dados do emprestimo retornados da camada de persistencia
 			//preparar para devolver ou renovar
 			editandoEmprestimo = true;
 			consultandoEmprestimo = false;
@@ -145,9 +165,9 @@ public class ManterEmprestimoMB implements Serializable {
 	
 	
 	/*
-	 *  Método pode ser invocado com um emprestimo novo ou com uma lista de 
-	 *  empréstimos retornados da consulta.
-	 *  Um empréstimo novo não tem data de retirada.
+	 *  Metodo pode ser invocado com um emprestimo novo ou com uma lista de 
+	 *  emprestimos retornados da consulta.
+	 *  Um emprestimo novo nao tem data de retirada.
 	 */
 	public Object salvarEmprestimo()
 	{
@@ -157,20 +177,20 @@ public class ManterEmprestimoMB implements Serializable {
 
 		for (Emprestimo emprestimo : emprestimos)
 		{
-			//empréstimo novo, Form com dados da consulta
+			//emprestimo novo, Form com dados da consulta
 			if(emprestimo.getDataEmprestimo()==null)
 			{
 
 				Livro livro=livroBC.buscarLivroPorExemplar(emprestimo.getLivro().getId()); //verificar novamente se livro existe
-				if(livro==null)// livro não existe
+				if(livro==null)// livro nao existe
 				{
 					emprestimos=criarEmprestimoVazio();
-					mensagemEmprestimo = "Item informado não existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro não exista
+					mensagemEmprestimo = "Item informado nÃ£o existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro nï¿½o exista
 					editandoEmprestimo = false;
 					consultandoEmprestimo = true;
 					return NavigationEnum.SELF;
 				}
-				else //livro existe e emprestimo é novo
+				else //livro existe e emprestimo eh novo
 				{
 					emprestimo.setRenovar(false); 
 					emprestimo.setDevolver(false);
@@ -180,7 +200,7 @@ public class ManterEmprestimoMB implements Serializable {
 					emprestimo.setOperadorLocacao(this.getUsuarioLogado());
 				}
 			}
-			else //empréstimo existente, devolver ou renovar
+			else //emprestimo existente, devolver ou renovar
 			{
 				devolverFlag=emprestimo.getDevolver()==null?false:emprestimo.getDevolver();
 				renovarFlag=emprestimo.getRenovar()==null?false:emprestimo.getRenovar();
@@ -205,7 +225,7 @@ public class ManterEmprestimoMB implements Serializable {
 				}
 			}	
 		}
-		emprestimoBC.salvarEmprestimos(emprestimos);
+		emprestimoBC.salvarEmprestimos(login,emprestimos);
 		mensagemEmprestimo=emprestimoBC.getMensagemEmprestimo();
 
 		editandoEmprestimo = false;
