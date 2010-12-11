@@ -29,6 +29,8 @@ public class LivroBC implements Serializable {
 			List<Livro> listaRetorno = new ArrayList<Livro>();
 			for (Livro livro : lista) 
 				if (!livro.getExcluir()) {
+					livro.setTitulo(livro.getTitulo().toUpperCase());
+					livro.setIsbn(livro.getIsbn().toUpperCase());
 					livro = livroDAO.insertOrUpdate(livro);
 					listaRetorno.add(livro);
 				}

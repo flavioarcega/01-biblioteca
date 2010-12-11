@@ -23,7 +23,9 @@ public class UsuarioBC implements Serializable {
 			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Informe o usuário para a pesquisa!"));
 			return null;
 		}
-		return usuarioDAO.findByUserName(login);
+		int a=10;
+		Usuario u=usuarioDAO.findByUserName(login);
+		return u;
 	}
 
 	public Boolean salvar(Usuario usuario) {

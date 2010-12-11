@@ -28,6 +28,11 @@ public class Perfil implements Serializable {
     public Perfil() {
     }
 
+    public Perfil(int id) //usado para comparação de perfis
+    {
+    	this.id=id;
+    }
+    
 	public int getId() {
 		return this.id;
 	}

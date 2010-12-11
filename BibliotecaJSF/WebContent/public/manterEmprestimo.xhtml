@@ -26,18 +26,10 @@
 					</div>
 					<div class="campo">
 						<div class="campoLabel">
-							<h:outputLabel value="#{bundle['label.exemplar']}" for="exemplar"/>
+							<h:outputLabel value="#{bundle['label.isbn']}" for="isbn"/> 
 						</div>
 						<div class="campoCorpo">
-							<h:inputText id="exemplar" value="#{manterEmprestimoMB.exemplar}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}"/>
-						</div>
-					</div>
-					<div class="campo">
-						<div class="campoLabel">
-							<h:outputLabel value="#{bundle['label.isbn']}" for="isbn"/>
-						</div>
-						<div class="campoCorpo">
-							<h:inputText id="isbn" value="#{manterEmprestimoMB.isbn}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}"/>
+							<h:inputText id="isbn" value="#{manterEmprestimoMB.isbn}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}"/> (*) para listar todos os empréstimos
 						</div>
 					</div>
 					<div class="campo">
@@ -46,6 +38,14 @@
 						</div>
 						<div class="campoCorpo">
 							<h:inputText id="titulo" value="#{manterEmprestimoMB.titulo}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}"/>
+						</div>
+					</div>
+					<div class="campo">
+						<div class="campoLabel">
+							<h:outputLabel value="#{bundle['label.exemplar']}" for="exemplar"/>
+						</div>
+						<div class="campoCorpo">
+							<h:inputText id="exemplar" value="#{manterEmprestimoMB.exemplar}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}"/>
 						</div>
 					</div>
 					<div class="campo">
@@ -62,7 +62,7 @@
 				</fieldset>
 			</h:panelGroup>
 
-			<h:panelGroup rendered="#{manterEmprestimoMB.emprestimos ne null}">
+			<h:panelGroup rendered="#{manterEmprestimoMB.emprestimos ne null}" style="overflow:auto;position:absolute;width:100%;height:100%">
 				<fieldset class="camposLinha"> 
 					<legend><h:outputText value="#{bundle['titulo.manterEmprestimo']}"/></legend>
 					<h:dataTable id="emprestimoTable" value="#{manterEmprestimoMB.emprestimos}" var="emprestimo">
@@ -71,12 +71,18 @@
 							<h:inputText id="idLivro" value="#{emprestimo.livro.id}" disabled="#{!manterEmprestimoMB.consultandoEmprestimo}" size="12"/>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
+							<f:facet name="header">#{bundle['label.usuario']}</f:facet>
+							<h:inputText id="loginEmprestimo" value="#{emprestimo.aluno.login}" disabled="true" size="10"/>
+						</h:column>
+						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.isbn']}</f:facet>
-							<h:inputText id="isbnEmprestimo" value="#{emprestimo.livro.isbn}" disabled="true" size="10"/>
+							<h:inputText id="isbnEmprestimo" value="#{emprestimo.livro.isbn}" disabled="true" size="10">
+							</h:inputText>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.titulo']}</f:facet>
-							<h:inputText id="tituloEmprestimo" value="#{emprestimo.livro.titulo}" disabled="true" size="30"/>
+							<h:inputText id="tituloEmprestimo" value="#{emprestimo.livro.titulo}" disabled="true" size="30">
+							</h:inputText>
 						</h:column>
 						<h:column headerClass="dataColumnHeader">
 							<f:facet name="header">#{bundle['label.dataEmprestimo']}</f:facet>
@@ -109,7 +115,7 @@
 				<fieldset class="barraBotao">
 					<div>
 						<h:commandButton value="#{bundle['label.consultar']}" action="#{manterEmprestimoMB.consultarExemplar}" rendered="#{manterEmprestimoMB.consultandoEmprestimo}" />
-						<h:commandButton value="#{bundle['label.salvar']}"  action="#{manterEmprestimoMB.salvarEmprestimo}"  rendered="#{manterEmprestimoMB.editandoEmprestimo}"/>
+						<h:commandButton value="#{bundle['label.processar']}"  action="#{manterEmprestimoMB.salvarEmprestimo}"  rendered="#{manterEmprestimoMB.editandoEmprestimo}"/>
 						<h:commandButton value="#{bundle['label.limpar']}"  action="#{manterEmprestimoMB.limpar}"  rendered="#{true}" />
 					</div>
 				</fieldset>
