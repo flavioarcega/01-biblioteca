@@ -6,6 +6,7 @@ import java.util.List;
 
 import biblioteca.persistence.dao.EditoraDAO;
 import biblioteca.persistence.entity.Editora;
+import biblioteca.persistence.entity.Livro;
 
 public class EditoraBC implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,8 +24,12 @@ public class EditoraBC implements Serializable {
 		try {
 			for (Editora editora : lista)
 				if (editora.getNome().isEmpty() || editora.getExcluir()) {
-					editoraDAO.delete(editora);
-					editora.setExcluir(true);
+					//somente exclui autor de não houver livros associados
+					List<Editora> listaEditora=editoraDAO.findLivroByEditora(editora);
+					if(listaEditora.size()==0)
+						editora.setExcluir(editoraDAO.delete(editora));
+					else
+						editora.setExcluir(false);
 				}
 			List<Editora> listaRetorno = new ArrayList<Editora>();
 			for (Editora editora : lista) 

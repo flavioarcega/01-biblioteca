@@ -12,15 +12,15 @@ import biblioteca.persistence.entity.Perfil;
 import biblioteca.persistence.entity.Usuario;
 
 enum MENSAGEM {
-	 EMPRESTIMOSUCESSO("Empr√©stimo executado com sucesso"),
-	 DEVOLUCAOSUCESSO("Devolu√ß√£o executada com sucesso"),
-	 RENOVACAOSUCESSO("Renova√ß√£o executada com sucesso"),
-	 EMPRESTIMOEXISTENTE("Empr√©stimo para o exemplar est√° pendente de devolu√ß√£o"),
-	 EMPRESTIMONAODISPONIVEL("N√£o existe empr√©stimo para os crit√©rios selecionados"),
-	 QUANTIDADEEMPRESTIMOLIMITE("Quantidade limite de empr√©stimos para usu√°rio atingida"),
-	 OPCAOINVALIDA("Op√ß√µes v√°lidas: Devolver ou Renovar"),
-	 EXEMPLARNAODISPONIVEL("Exemplar est√° emprestado"),
-	 EXEMPLARDISPONIVEL("Exemplar est√° dispon√≠vel para empr√©stimo");
+	 EMPRESTIMOSUCESSO("EmprÈstimo executado com sucesso"),
+	 DEVOLUCAOSUCESSO("DevoluÁ„o executada com sucesso"),
+	 RENOVACAOSUCESSO("RenovaÁ„o executada com sucesso"),
+	 EMPRESTIMOEXISTENTE("EmprÈstimo para o exemplar est· pendente de devoluÁ„o"),
+	 EMPRESTIMONAODISPONIVEL("N„o existe emprÈstimo para os critÈrios selecionados"),
+	 QUANTIDADEEMPRESTIMOLIMITE("Quantidade limite de emprÈstimos para usu·rio atingida"),
+	 OPCAOINVALIDA("OpÁıes v·lidas: Devolver ou Renovar"),
+	 EXEMPLARNAODISPONIVEL("Exemplar est· emprestado"),
+	 EXEMPLARDISPONIVEL("Exemplar est· disponÌvel para emprÈstimo");
 	 
 
 	 private String textoMensagem;
@@ -39,12 +39,10 @@ public class EmprestimoBC implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private EmprestimoDAO emprestimoDAO;
 	private String mensagemEmprestimo;
-	private UsuarioBC usuarioBC;
 
 	
 	public EmprestimoBC() {
 		emprestimoDAO = new EmprestimoDAO();
-		usuarioBC=new UsuarioBC();
 	}
 
 	

@@ -7,6 +7,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import biblioteca.persistence.dao.UsuarioDAO;
+import biblioteca.persistence.entity.Editora;
+import biblioteca.persistence.entity.Emprestimo;
 import biblioteca.persistence.entity.Usuario;
 
 public class UsuarioBC implements Serializable {
@@ -20,7 +22,7 @@ public class UsuarioBC implements Serializable {
 
 	public Usuario pesquisarPorLogin(String login) {
 		if (login.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Informe o usu√°rio para a pesquisa!"));
+			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Informe o usu·rio para a pesquisa!"));
 			return null;
 		}
 		int a=10;
@@ -39,7 +41,13 @@ public class UsuarioBC implements Serializable {
 	}
 
 	public Boolean excluir(Usuario usuario) {
-		return usuarioDAO.delete(usuario);
+		List<Emprestimo> listaEmprestimo=usuarioDAO.findEmprestimoByUsuario(usuario);
+		if(listaEmprestimo.size()==0)
+		{	
+			return usuarioDAO.delete(usuario);
+		}
+		else
+			return false; 
 	}
 	
 	public List<Usuario> listarUsuarios() {

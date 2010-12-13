@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import biblioteca.persistence.dao.LivroDAO;
+import biblioteca.persistence.entity.Editora;
 import biblioteca.persistence.entity.Livro;
 
 public class LivroBC implements Serializable {
@@ -23,9 +24,13 @@ public class LivroBC implements Serializable {
 		try {
 			for (Livro livro : lista)
 				if (livro.getIsbn().isEmpty() || livro.getExcluir()) {
-					livroDAO.delete(livro);
-					livro.setExcluir(true);
+					List<Livro> listaLivros=livroDAO.findLivroByEmprestimo(livro);
+					if(listaLivros.size()==0)
+						livro.setExcluir(livroDAO.delete(livro));
+					else
+						livro.setExcluir(false);
 				}
+
 			List<Livro> listaRetorno = new ArrayList<Livro>();
 			for (Livro livro : lista) 
 				if (!livro.getExcluir()) {
@@ -50,5 +55,7 @@ public class LivroBC implements Serializable {
 		}
 		else return null;
 	}
+
+
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import biblioteca.persistence.dao.AutorDAO;
 import biblioteca.persistence.entity.Autor;
+import biblioteca.persistence.entity.Livro;
 
 public class AutorBC implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +23,14 @@ public class AutorBC implements Serializable {
 	public List<Autor> salvarAutores(List<Autor> lista) {
 		for (Autor autor : lista)
 			if (autor.getNome().isEmpty() || autor.getExcluir())
-				autor.setExcluir(autorDAO.delete(autor));
+			{
+				//somente exclui autor de não houver livros associados
+				List<Livro> listaLivro=autorDAO.findLivroByAutor(autor);
+				if(listaLivro.size()==0)
+					autor.setExcluir(autorDAO.delete(autor));
+				else
+					autor.setExcluir(false);
+			}
 		List<Autor> listaRetorno = new ArrayList<Autor>();
 		for (Autor autor : lista) 
 			if (!autor.getExcluir()) {
