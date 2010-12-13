@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+import javax.persistence.NoResultException;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -37,10 +38,13 @@ public class ExceptionActionListener implements ActionListener {
 				 * para não serem exibidas
 				 * 
 				 */
-				if (e.getCause() instanceof ConstraintViolationException || e.getCause().getCause() instanceof ConstraintViolationException || e.getCause().getCause().getCause() instanceof ConstraintViolationException)
-					FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Viola��o de relacionamento entre tabelas do banco!"));
-				//else
-					e.getCause().printStackTrace();
+				if (recursiveNoResultExceptionAnaliser(e))
+					FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Nenhum registro encontrado no banco de dados!"));
+
+				if (recursiveConstraintViolationExceptionAnaliser(e))
+					FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Violação de relacionamento entre tabelas do banco!"));
+				
+				e.getCause().printStackTrace();
 			}
 		}
 
@@ -52,5 +56,33 @@ public class ExceptionActionListener implements ActionListener {
 
 		// Trigger a switch to Render Response if needed
 		context.renderResponse();
+	}
+
+	/**
+	 * Verifica se a pesquisa não encontrou resultados.
+	 * @param e
+	 * @return boolean
+	 */
+	private boolean recursiveNoResultExceptionAnaliser(Throwable e) {
+		if (e == null)
+			return false;
+		else if (e instanceof NoResultException)
+			return true;
+		else
+			return recursiveNoResultExceptionAnaliser(e.getCause());
+	}
+
+	/**
+	 * Verifica se houve violação de contraint.
+	 * @param e
+	 * @return boolean
+	 */
+	private boolean recursiveConstraintViolationExceptionAnaliser(Throwable e) {
+		if (e == null)
+			return false;
+		else if (e instanceof ConstraintViolationException)
+			return true;
+		else
+			return recursiveConstraintViolationExceptionAnaliser(e.getCause());
 	}
 }

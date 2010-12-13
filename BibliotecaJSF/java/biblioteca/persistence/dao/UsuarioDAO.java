@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import biblioteca.persistence.entity.Emprestimo;
-import biblioteca.persistence.entity.Livro;
 import biblioteca.persistence.entity.Usuario;
 
 /**

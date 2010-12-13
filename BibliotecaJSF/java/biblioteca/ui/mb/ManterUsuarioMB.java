@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -44,7 +42,6 @@ public class ManterUsuarioMB implements Serializable {
 			this.setFasePesquisa(false);
 		} else {
 			this.setFasePesquisa(true);
-			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Usuário não encontrado!"));
 		}
 		
 		return NavigationEnum.SELF;
