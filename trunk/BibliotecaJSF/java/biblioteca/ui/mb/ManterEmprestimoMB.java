@@ -78,7 +78,7 @@ public class ManterEmprestimoMB implements Serializable {
 		if (exemplarEmprestimo==null)
 		{ 
 			//campo do exemplar vazio, retorna para consulta
-			mensagemEmprestimo="Exemplar nÃ£o foi fornecido";
+			mensagemEmprestimo="Exemplar não foi fornecido";
 			editandoEmprestimo = false;
 			consultandoEmprestimo = true;
 		}
@@ -93,7 +93,7 @@ public class ManterEmprestimoMB implements Serializable {
 				{
 					emprestimos=criarEmprestimoVazio();
 
-					mensagemEmprestimo = "Item informado nÃ£o existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro nï¿½o exista
+					mensagemEmprestimo = "Item informado não existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro nï¿½o exista
 					editandoEmprestimo = false;
 					consultandoEmprestimo = true;
 				}
@@ -128,7 +128,7 @@ public class ManterEmprestimoMB implements Serializable {
 		boolean falhaValidacao=false;
 		if(isbn.length()>13)
 		{
-			mensagemEmprestimo="Isbn maior que 13 caracteres";
+			mensagemEmprestimo="ISBN maior que 13 caracteres";
 			falhaValidacao=true;
 		}
 		if(titulo.length()>60)
@@ -185,7 +185,7 @@ public class ManterEmprestimoMB implements Serializable {
 				if(livro==null)// livro nao existe
 				{
 					emprestimos=criarEmprestimoVazio();
-					mensagemEmprestimo = "Item informado nÃ£o existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro nï¿½o exista
+					mensagemEmprestimo = "Item informado não existe no cadastro"; //colocar mensagem do livroBC no futuro caso livro nï¿½o exista
 					editandoEmprestimo = false;
 					consultandoEmprestimo = true;
 					return NavigationEnum.SELF;

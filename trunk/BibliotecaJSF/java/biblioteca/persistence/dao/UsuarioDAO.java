@@ -1,7 +1,11 @@
 package biblioteca.persistence.dao;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
+import biblioteca.persistence.entity.Emprestimo;
+import biblioteca.persistence.entity.Livro;
 import biblioteca.persistence.entity.Usuario;
 
 /**
@@ -22,4 +26,13 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
 		byIdQuery.setParameter(1, userName);
 		return (Usuario) byIdQuery.getSingleResult();
 	}
+	
+	public List<Emprestimo> findEmprestimoByUsuario(Usuario usuario) {
+		Query byEmprestimoUsuarioQuery = this.getEntityManager().createQuery("select object(c) from Emprestimo as c where c.aluno.id=?1" );
+		byEmprestimoUsuarioQuery.setParameter(1, usuario.getId());
+		List<Emprestimo> lista= byEmprestimoUsuarioQuery.getResultList();
+		return lista;
+	}
+	
+	
 }

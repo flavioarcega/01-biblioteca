@@ -44,7 +44,7 @@ public class ManterUsuarioMB implements Serializable {
 			this.setFasePesquisa(false);
 		} else {
 			this.setFasePesquisa(true);
-			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Usu√°rio n√£o encontrado!"));
+			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Usu·rio n„o encontrado!"));
 		}
 		
 		return NavigationEnum.SELF;
@@ -70,10 +70,17 @@ public class ManterUsuarioMB implements Serializable {
 	}
 	
 	public Object excluir() {
-		usuarioBC.excluir(this.getUsuario());
-		this.setUsuario(null);
-		this.setRegistroSalvo(true);
-		this.setFasePesquisa(true);
+		if(usuarioBC.excluir(this.getUsuario()))
+		{
+			this.setUsuario(null);
+			this.setRegistroSalvo(true);
+			this.setFasePesquisa(true);
+		}
+		else
+		{
+			this.setRegistroSalvo(false);
+			this.setFasePesquisa(true);
+		}
 		return NavigationEnum.SELF;
 	}
 
