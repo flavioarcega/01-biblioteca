@@ -7,7 +7,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import biblioteca.persistence.dao.UsuarioDAO;
-import biblioteca.persistence.entity.Editora;
 import biblioteca.persistence.entity.Emprestimo;
 import biblioteca.persistence.entity.Usuario;
 
@@ -22,12 +21,13 @@ public class UsuarioBC implements Serializable {
 
 	public Usuario pesquisarPorLogin(String login) {
 		if (login.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Informe o usu�rio para a pesquisa!"));
+			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Informe o usuário para a pesquisa!"));
 			return null;
 		}
-		int a=10;
-		Usuario u=usuarioDAO.findByUserName(login);
-		return u;
+		Usuario u = usuarioDAO.findByUserName(login);
+		if (u==null)
+			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Usuário não encontrado!"));
+		return u; 
 	}
 
 	public Boolean salvar(Usuario usuario) {
