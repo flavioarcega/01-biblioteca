@@ -1,0 +1,122 @@
+@CHARSET "UTF-8";
+
+/******************************************************************************
+*                                                               
+* Classes de acessibilidade dos formulários
+*                                                               
+******************************************************************************/
+
+div.header {
+	margin: 15px 0px 15px 0px;
+}
+
+div.content {
+}
+
+div.menu {
+	float: left;
+	width: 100%;
+}
+
+div.menu a{
+	float: left;
+	text-decoration: none;
+	font-weight: bold;
+	color: black;
+	margin: 3px;
+	padding: 3px;
+	border: 1px solid gray;
+}
+
+div.menu a:hover{
+	color: red;
+	background-color: lightgray; 
+}
+
+div.linkHistorico {
+    margin: 1em;    
+}
+
+/* tira borda */
+div.camposLinha {
+    border: 0px none transparent;
+}
+
+div.camposLinha div.campo {
+    float:left;
+    margin-left: 0.3em;
+    margin-right: 0.5em;
+    vertical-align: top;
+    
+}
+
+fieldset {
+    margin: 3px 2px 3px 3px;
+}
+
+fieldset.barraBotao {
+	border: solid #ADAD94 1px;
+    padding: 5px;
+    text-align: left;
+    vertical-align: middle;
+    background-color: gray;
+}
+
+fieldset.barraBotao div {
+    float:left;
+	text-align: left;
+    vertical-align: middle;
+}
+
+fieldset.camposLinha input select{
+    vertical-align: top;    
+}
+
+/* Usado nos botões de pesquisa que ficam na mesma linha de inputs */
+fieldset.camposLinha input.inlineButton {
+    top:-2px;
+    position: relative;
+}
+
+span.textoCheckbox {
+    margin-left: 3px;
+}
+
+h4 {
+    font-size: 12px;
+}
+
+ol li {
+    list-style-type: upper-roman;
+}
+
+ol li ul li {
+    list-style-type: decimal;
+}
+
+ol li ul li ul li{
+    list-style-type: disc;
+}
+
+div.textoExplicativo {
+    margin-left: 1em;
+}
+
+div.paragrafoTextoExplicativo {
+    margin-left: 2em;
+}JSF
+
+em.counter {
+    display: block;
+}
+
+.dataColumnHeader {
+	border: solid #ADAD94 1px;
+	background-color: lightgray;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.dataColumnExcluir {
+	margin-left: 45px;
+}
