@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="&#10;INSERT INTO PERFIL VALUES (1, 'Administrador');&#10;INSERT INTO PERFIL VALUES (2, 'Professor');&#10;INSERT INTO PERFIL VALUES (3, 'Aluno');&#10;&#10;INSERT INTO USUARIO VALUES (1, 'admin', 'admin', 'Administrador');&#10;INSERT INTO USUARIO VALUES (2, 'professor', 'professor', 'Professor');&#10;INSERT INTO USUARIO VALUES (3, 'aluno', 'aluno', 'Aluno');&#10;&#10;INSERT INTO USUARIO_PERFIL VALUES (1, 1);&#10;INSERT INTO USUARIO_PERFIL VALUES (2, 2);&#10;INSERT INTO USUARIO_PERFIL VALUES (3, 3);&#10;&#10;CREATE SEQUENCE SQ_USUARIO_ID_USUARIO       AS INTEGER START WITH 4 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_PERFIL_ID_PERFIL         AS INTEGER START WITH 4 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_AUTOR_ID_AUTOR           AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_EDITORA_ID_EDITORA       AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_LIVRO_ID_LIVRO           AS INTEGER START WITH 1 INCREMENT BY 1;&#10;CREATE SEQUENCE SQ_EMPRESTIMO_ID_EMPRESTIMO AS INTEGER START WITH 1 INCREMENT BY 1;&#10;&#10;" id="4000e7:12c6092205b:-8000" name="BibliotecaDB" sql-dialect-id="jp.azzurri.clay.dialect.HSQLDB_1_7_0_Dialect" version="1.0">
+<schema-list>
+<schema id="4000e7:12c6092205b:-7ffd" name="PUBLIC">
+<table-list>
+<table id="4000e7:12c6092205b:-7fff" name="LIVRO">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7ff5" mandatory="true" name="ID_LIVRO">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="13" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7ff2" mandatory="true" name="ISBN">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-78d3" mandatory="true" name="TITULO">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fef" mandatory="true" name="EDICAO">
+<data-type name="SMALLINT" selected-variant-pattern="SMALLINT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fee" mandatory="true" name="ANOEDICAO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7a63" mandatory="true" name="ID_EDITORA">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7a39" mandatory="true" name="ID_AUTOR">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="4000e7:12c6092205b:-7ffe" name="PK_LIVRO">
+<primary-key-column name="ID_LIVRO"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4000e7:12c6092205b:-7a65" name="FK_LIVRO_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EDITORA" referenced-table="EDITORA" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_EDITORA" referenced-key-column-name="ID_EDITORA"/>
+</foreign-key>
+<foreign-key id="4000e7:12c6092205b:-7a3b" name="FK_LIVRO_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_AUTOR" referenced-table="AUTOR" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_AUTOR" referenced-key-column-name="ID_AUTOR"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4000e7:12c6092205b:-7feb" name="EDITORA">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fe2" mandatory="true" name="ID_EDITORA">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fe5" mandatory="true" name="NOME">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fe4" mandatory="true" name="CIDADE">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fe3" mandatory="true" name="PAIS">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="4000e7:12c6092205b:-7fea" name="PK_EDITORA">
+<primary-key-column name="ID_EDITORA"/>
+</primary-key>
+</table>
+<table id="4000e7:12c6092205b:-7fdf" name="AUTOR">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fdb" mandatory="true" name="ID_AUTOR">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7fda" mandatory="true" name="NOME">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-78ce" mandatory="true" name="ANONASCIMENTO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="4000e7:12c6092205b:-7fde" name="PK_AUTOR">
+<primary-key-column name="ID_AUTOR"/>
+</primary-key>
+</table>
+<table id="4000e7:12c6092205b:-7e31" name="PERFIL">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e28" mandatory="true" name="ID_PERFIL">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e27" mandatory="false" name="DESCRICAO">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="4000e7:12c6092205b:-7e30" name="PK_PERFIL">
+<primary-key-column name="ID_PERFIL"/>
+</primary-key>
+</table>
+<table id="4000e7:12c6092205b:-7e20" name="USUARIO">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e1c" mandatory="true" name="ID_USUARIO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="16" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e19" mandatory="true" name="LOGIN">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e18" mandatory="true" name="SENHA">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7e17" mandatory="true" name="NOME">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="4000e7:12c6092205b:-7e1f" name="PK_USUARIO">
+<primary-key-column name="ID_USUARIO"/>
+</primary-key>
+</table>
+<table id="4000e7:12c6092205b:-7e16" name="USUARIO_PERFIL">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7dde" mandatory="true" name="ID_PERFIL">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7dbb" mandatory="true" name="ID_USUARIO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="4000e7:12c6092205b:-7e15" name="PK_USUARIO_PERFIL">
+<primary-key-column name="ID_PERFIL"/>
+<primary-key-column name="ID_USUARIO"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4000e7:12c6092205b:-7de0" name="FK_USUARIO_PERFIL_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PERFIL" referenced-table="PERFIL" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_PERFIL" referenced-key-column-name="ID_PERFIL"/>
+</foreign-key>
+<foreign-key id="4000e7:12c6092205b:-7dbd" name="FK_USUARIO_PERFIL_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_USUARIO" referenced-key-column-name="ID_USUARIO"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="4000e7:12c6092205b:-7d72" name="EMPRESTIMO">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d67" mandatory="true" name="ID_EMPRESTIMO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d66" mandatory="false" name="DATA_EMPRESTIMO">
+<data-type name="DATETIME" selected-variant-pattern="DATETIME"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d65" mandatory="false" name="DATA_DEVOLUCAO_PROGRAMADA">
+<data-type name="DATETIME" selected-variant-pattern="DATETIME"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7d64" mandatory="false" name="DATA_DEVOLUCAO_EFETIVA">
+<data-type name="DATETIME" selected-variant-pattern="DATETIME"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7c56" mandatory="false" name="ID_RENOVACAO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7acd" mandatory="true" name="ID_LIVRO">
+<data-type name="VARCHAR" selected-variant-pattern="VARCHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-78b9" mandatory="true" name="ID_ALUNO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-7836" mandatory="true" name="ID_OPERADOR_LOCACAO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="4000e7:12c6092205b:-77e3" mandatory="true" name="ID_OPERADOR_DEVOLUCAO">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="4000e7:12c6092205b:-7d71" name="PK_EMPRESTIMO">
+<primary-key-column name="ID_EMPRESTIMO"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="4000e7:12c6092205b:-7acf" name="FK_EMPRESTIMO_5" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_LIVRO" referenced-table="LIVRO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_LIVRO" referenced-key-column-name="ID_LIVRO"/>
+</foreign-key>
+<foreign-key id="4000e7:12c6092205b:-768d" name="FK_EMPRESTIMO_9" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_EMPRESTIMO" referenced-table="EMPRESTIMO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_RENOVACAO" referenced-key-column-name="ID_EMPRESTIMO"/>
+</foreign-key>
+<foreign-key id="d320d6:12c65341f29:-7ed3" name="FK_EMPRESTIMO_3" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_ALUNO" referenced-key-column-name="ID_USUARIO"/>
+</foreign-key>
+<foreign-key id="d320d6:12c65341f29:-7e7d" name="FK_EMPRESTIMO_4" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_OPERADOR_LOCACAO" referenced-key-column-name="ID_USUARIO"/>
+</foreign-key>
+<foreign-key id="d320d6:12c65341f29:-7e40" name="FK_EMPRESTIMO_6" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="PUBLIC" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="ID_OPERADOR_DEVOLUCAO" referenced-key-column-name="ID_USUARIO"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure height="184" refid="4000e7:12c6092205b:-7fff" width="139" x="328" y="409"/>
+<table-figure refid="4000e7:12c6092205b:-7feb" x="665" y="552"/>
+<table-figure refid="4000e7:12c6092205b:-7fdf" x="701" y="446"/>
+<table-figure refid="4000e7:12c6092205b:-7e31" x="72" y="98"/>
+<table-figure refid="4000e7:12c6092205b:-7e20" x="57" y="375"/>
+<table-figure refid="4000e7:12c6092205b:-7e16" x="56" y="231"/>
+<table-figure height="216" refid="4000e7:12c6092205b:-7d72" width="289" x="691" y="33"/>
+</diagram>
+</clay-model>
