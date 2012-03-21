@@ -14,7 +14,7 @@ public aspect TransactionAspect {
 
 	// Somente para excessao
 	pointcut getDataOperation() : execution(* biblioteca.persistence.dao.*DAO.get*(..));
-	before() : getDataOperation() { }
+	before() : getDataOperation() {	}
 	after()  : getDataOperation() { }
 	
 	// Somente para excessao
